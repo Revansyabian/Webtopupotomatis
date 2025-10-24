@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUSSID Money Top Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #001f3f;
+            color: #ffffff;
+            line-height: 1.5;
+            padding: 10px;
+            background: linear-gradient(135deg, #001f3f, #003366);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 191, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            animation: containerSlide 0.8s ease-out;
+        }
+        
+        @keyframes containerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #00BFFF;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+        
+        .section-title::before {
+            content: '▶';
+            font-size: 14px;
+            color: #00BFFF;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            color: #CCCCCC;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 15px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+        }
+        
+        .license-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .license-status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .license-valid {
+            color: #00FF88;
+        }
+        
+        .license-expired {
+            color: #FF4444;
+        }
+        
+        .license-days {
+            font-size: 14px;
+            color: #CCCCCC;
+        }
+        
+        .login-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .login-tab.active {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            box-shadow: 0 2px 10px rgba(0, 191, 255, 0.3);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #CCCCCC;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field::placeholder {
+            color: #999999;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00BFFF;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .amount-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .amount-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #FFFFFF;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .amount-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .amount-btn:hover::before {
+            left: 100%;
+        }
+        
+        .amount-btn:hover {
+            background: rgba(0, 191, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .amount-btn.active {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            border-color: #00BFFF;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .button {
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .button:hover::before {
+            left: 100%;
+        }
+        
+        .button-primary {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+        }
+        
+        .button-secondary {
+            background: linear-gradient(135deg, #0056b3, #0074D9);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 116, 217, 0.4);
+        }
+        
+        .button-success {
+            background: linear-gradient(135deg, #00A86B, #00CC88);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 204, 136, 0.4);
+        }
+        
+        .button-danger {
+            background: linear-gradient(135deg, #DC3545, #FF6B6B);
+            color: white;
+            box-shadow: 0 4px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 191, 255, 0.6);
+        }
+        
+        .button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+        
+        .amount-display {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            color: #00BFFF;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 191, 255, 0.8); }
+            to { text-shadow: 0 0 30px rgba(0, 191, 255, 1); }
+        }
+        
+        .max-info {
+            text-align: center;
+            color: #CCCCCC;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        
+        .status-message {
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            font-weight: 500;
+            border: 1px solid;
+            font-size: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success {
+            background: rgba(0, 255, 0, 0.15);
+            color: #00FF88;
+            border-color: #00FF88;
+        }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.15);
+            color: #FF4444;
+            border-color: #FF4444;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #00BFFF;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .login-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #CCCCCC;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .transaction-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .transaction-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #00BFFF;
+        }
+        
+        .transaction-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .transaction-label {
+            color: #CCCCCC;
+            font-size: 14px;
+        }
+        
+        .transaction-value {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .transaction-success {
+            color: #00FF88;
+        }
+        
+        .transaction-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 191, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #00BFFF;
+        }
+        
+        .transaction-message {
+            color: #CCCCCC;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .access-denied {
+            text-align: center;
+            padding: 40px 20px;
+            color: #FF4444;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .access-denied h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .access-denied p {
+            color: #CCCCCC;
+            margin-bottom: 20px;
+        }
+        
+        .auto-wa-notice {
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            color: #FFC107;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: modalPop 0.4s ease-out;
+        }
+        
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .modal h3 {
+            color: #FF4444;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .modal p {
+            color: #CCCCCC;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(0, 191, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #FF6B6B, #FFE66D);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 191, 255, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00BFFF;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #CCCCCC;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            color: #00BFFF;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 191, 255, 0.2);
+        }
+        
+        .permanent-notice {
+            background: rgba(0, 191, 255, 0.1);
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: center;
+            color: #00BFFF;
+            font-size: 12px;
+        }
+        
+        /* CSS tambahan untuk tombol akses */
+        .access-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .access-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #FFFFFF;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .access-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .access-btn:hover::before {
+            left: 100%;
+        }
+        
+        .access-btn:hover {
+            background: rgba(0, 191, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .access-btn.week {
+            background: linear-gradient(135deg, #FF6B6B, #FFA500);
+            border-color: #FFA500;
+        }
+        
+        .access-btn.month {
+            background: linear-gradient(135deg, #00A86B, #00CC88);
+            border-color: #00CC88;
+        }
+        
+        .access-btn.permanent {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            border-color: #00BFFF;
+        }
+        
+        .access-btn.double-month {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            border-color: #E91E63;
+        }
+        
+        .access-btn.triple-month {
+            background: linear-gradient(135deg, #FF5722, #FF9800);
+            border-color: #FF9800;
+        }
+        
+        /* CSS untuk menu perpanjangan akses */
+        .renewal-section {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .renewal-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #FF4444;
+        }
+        
+        .renewal-message {
+            color: #CCCCCC;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="feature-badge">PREMIUM</div>
+        
+        <div class="header">
+            <h1>WEB TOP UP BUSSID</h1>
+            <p>Ga bisa akses? beli akses ke admin</p>
+        </div>
+        
+        <!-- Bagian ini akan disembunyikan saat akses ditolak -->
+        <div id="main-content">
+            <div class="section">
+                <div class="license-info" id="license-info">
+                    <div class="license-status" id="license-status">Checking License...</div>
+                    <div class="license-days" id="license-days"></div>
+                </div>
+                
+                <!-- Menu Perpanjangan Akses (akan muncul saat license expired) -->
+                <div class="renewal-section" id="renewal-section" style="display: none;">
+                    <div class="renewal-title">⏰ 𝗔𝗞𝗦𝗘𝗦 𝗧𝗘𝗟𝗔𝗛 𝗛𝗔𝗕𝗜𝗦</div>
+                    <div class="renewal-message" id="renewal-message">
+                        Akses Anda telah berakhir. Silakan perpanjang akses untuk melanjutkan menggunakan layanan top up.
+                    </div>
+                    
+                    <div class="auto-wa-notice">
+                        <h3>𝗣𝗜𝗟𝗜𝗛 𝗣𝗔𝗞𝗘𝗧 𝗣𝗘𝗥𝗣𝗔𝗡𝗝𝗔𝗡𝗚𝗔𝗡 𝗔𝗞𝗦𝗘𝗦</h3>
+                        <br>Pilih paket perpanjangan akses di bawah:
+                    </div>
+                    
+                    <div class="access-options">
+                        <button class="access-btn week" data-price="20" data-duration="1 Minggu">
+                            <strong>1 MINGGU</strong><br>Rp 20.000
+                        </button>
+                        <button class="access-btn month" data-price="35" data-duration="2 Minggu">
+                            <strong>2 MINGGU</strong><br>Rp 35.000
+                        </button>
+                        <button class="access-btn double-month" data-price="45" data-duration="1 Bulan">
+                            <strong>1 BULAN</strong><br>Rp 45.000
+                        </button>
+                        <button class="access-btn triple-month" data-price="50" data-duration="2 Bulan">
+                            <strong>2 BULAN</strong><br>Rp 50.000
+                        </button>
+                        <button class="access-btn permanent" data-price="65" data-duration="3 Bulan">
+                            <strong>3 BULAN</strong><br>Rp 65.000
+                        </button>
+                        <button class="access-btn permanent" data-price="85" data-duration="Permanent">
+                            <strong>PERMANENT</strong><br>Rp 85.000
+                        </button>
+                    </div>
+                    
+                    <p style="margin-top: 20px; color: #CCCCCC; font-size: 14px;">
+                        Pencet tombol perpanjangan akses yang diinginkan:
+                    </p>
+                </div>
+                
+                <!-- Login Section (akan disembunyikan saat license expired) -->
+                <div id="login-content">
+                    <div class="login-section" id="login-section">
+                        <div class="login-tabs">
+                            <div class="login-tab active" data-tab="device">𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝗱 𝗟𝗼𝗴𝗶𝗻</div>
+                            <div class="login-tab" data-tab="xauth">X-Auth Login</div>
+                        </div>
+                        
+                        <!-- Device ID Login Form - MANUAL INPUT -->
+                        <div class="login-form active" id="device-login-form">
+                            <div class="input-group">
+                                <div class="input-label">𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝗱 𝗧𝗼𝗽 𝘂𝗽</div>
+                                <input type="text" class="input-field" id="device-id-input" placeholder="𝗠𝗮𝘀𝘂𝗸𝗮𝗻 𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝗱">
+                            </div>
+                            <button class="button button-primary" id="device-login-btn" style="width: 100%;">
+                                𝗟𝗢𝗚𝗜𝗡 𝗟𝗘𝗪𝗔𝗧 𝗗𝗘𝗩𝗜𝗖𝗘 𝗜𝗗
+                            </button>
+                        </div>
+                        
+                        <!-- X-Auth Login Form -->
+                        <div class="login-form" id="xauth-login-form">
+                            <div class="input-group">
+                                <div class="input-label">𝗧𝗢𝗞𝗘𝗡</div>
+                                <input type="text" class="input-field" id="xauth-input" placeholder="𝗠𝗮𝘀𝘂𝗸𝗮𝗻 𝗧𝗼𝗸𝗲𝗻">
+                            </div>
+                            <button class="button button-success" id="xauth-login-btn" style="width: 100%;">
+                                𝗟𝗢𝗚𝗜𝗡 𝗟𝗘𝗪𝗔𝗧 𝗧𝗢𝗞𝗘𝗡
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗦𝗜 𝗔𝗞𝗨𝗡</div>
+                    
+                    <div class="info-box" id="account-info">
+                        <div class="info-row">
+                            <div class="info-label">𝗝𝗨𝗠𝗟𝗔𝗛 𝗨𝗔𝗡𝗚</div>
+                            <div class="info-value" id="cash-amount">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">𝗡𝗔𝗠𝗔 𝗔𝗞𝗨𝗡</div>
+                            <div class="info-value" id="account-name">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">𝗡𝗔𝗠𝗔</div>
+                            <div class="info-value" id="license-name">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">𝗠𝗘𝗧𝗢𝗗𝗘 𝗟𝗢𝗚𝗜𝗡</div>
+                            <div class="info-value" id="login-method">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="topup-section" style="display: none;">
+                <div class="section-title">𝗧𝗢𝗣 𝗨𝗣 𝗦𝗘𝗥𝗩𝗜𝗖𝗘</div>
+                
+                <div class="input-group">
+                    <div class="input-label">𝗠𝗔𝗦𝗨𝗞𝗔𝗡 𝗝𝗨𝗠𝗟𝗔𝗛 (1 - 2,147,483,647)</div>
+                    <input type="number" class="input-field" id="amount-input" placeholder="Masukkan jumlah" min="1" max="2147483647">
+                    <div class="max-info">𝗠𝗔𝗫𝗜𝗠𝗔𝗟 𝗨𝗕: 2,147,483,647</div>
+                </div>
+                
+                <div class="amount-controls">
+                    <button class="amount-btn" data-amount="50000000">50 JT</button>
+                    <button class="amount-btn" data-amount="100000000">100 JT</button>
+                    <button class="amount-btn" data-amount="500000000">500 JT</button>
+                    <button class="amount-btn" data-amount="1000000000">1 M</button>
+                </div>
+                
+                <div class="amount-display" id="selected-amount">Selected Amount: 0</div>
+                
+                <div class="button-group">
+                    <button class="button button-primary" id="add-cash-btn">𝗧𝗔𝗠𝗕𝗔𝗛 𝗨𝗔𝗡𝗚</button>
+                    <button class="button button-secondary" id="reduce-cash-btn">𝗞𝗨𝗥𝗔𝗦 𝗨𝗔𝗡𝗚</button>
+                </div>
+
+                <div class="button-group">
+                    <button class="button button-success" id="refresh-btn" style="grid-column: 1 / -1;">
+                        🔄 𝗥𝗘𝗙𝗥𝗘𝗦𝗛
+                    </button>
+                </div>
+
+                <button class="button button-danger" id="logout-btn" style="width: 100%; margin-top: 10px;">
+                     𝗟𝗢𝗚𝗢𝗨𝗧
+                </button>
+                
+                <div class="status-message" id="status-message"></div>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <div>𝗣𝗿𝗼𝘀𝗲𝘀 𝘁𝗼𝗽 𝘂𝗽...</div>
+                </div>
+                
+                <div class="transaction-details" id="transaction-details">
+                    <div class="transaction-title">𝗗𝗘𝗧𝗔𝗜𝗟 𝗧𝗥𝗔𝗡𝗦𝗔𝗞𝗦𝗜</div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">Name akun:</div>
+                        <div class="transaction-value" id="trans-account">-</div>
+                    </div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">𝗝𝗲𝗻𝗶𝘀 𝗧𝗿𝗮𝗻𝘀𝗮𝗸𝘀𝗶:</div>
+                        <div class="transaction-value" id="trans-type">-</div>
+                    </div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">𝗨𝗮𝗻𝗴:</div>
+                        <div class="transaction-value" id="trans-amount">-</div>
+                    </div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">𝗨𝗮𝗻𝗴 𝘀𝗲𝗯𝗲𝗹𝘂𝗺:</div>
+                        <div class="transaction-value" id="trans-before">-</div>
+                    </div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">𝗨𝗮𝗻𝗴 𝘀𝗲𝘀𝘂𝗱𝗮𝗵:</div>
+                        <div class="transaction-value transaction-success" id="trans-after">-</div>
+                    </div>
+                    <div class="transaction-row">
+                        <div class="transaction-label">𝗦𝘁𝗮𝘁𝘂𝘀:</div>
+                        <div class="transaction-value transaction-success" id="trans-status">-</div>
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-message">
+                            ✅ <strong>𝗧𝗼𝗽 𝘂𝗽 𝗕𝗲𝗿𝗵𝗮𝘀𝗶𝗹!</strong><br>
+                            𝗕𝗲𝗿𝗵𝗮𝘀𝗶𝗹 𝗧𝗼𝗽 𝗨𝗽 𝗦𝗶𝗹𝗮𝗸𝗮𝗻 𝗖𝗲𝗸 𝗔𝗸𝘂𝗻 𝗮𝗻𝗱𝗮.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bagian ini akan ditampilkan saat akses ditolak -->
+        <div class="access-denied" id="access-denied" style="display: none;">
+            <h3>⚠️ ACCESS DENIED</h3>
+            <p>𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗧𝗜𝗗𝗔𝗞 𝗧𝗘𝗥𝗗𝗔𝗙𝗧𝗔𝗥 𝗣𝗔𝗗𝗔 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘/!.</p>
+            <div class="auto-wa-notice">
+                <h3>𝗟𝗜𝗦𝗧 𝗛𝗔𝗥𝗚𝗔 𝗦𝗘𝗪𝗔 𝗪𝗘𝗕 𝗧𝗢𝗣 𝗨𝗣 𝗕𝗨𝗦𝗦𝗜𝗗</h3>
+                <br>𝗣𝗶𝗹𝗶𝗵 𝗽𝗮𝗸𝗲𝘁 𝗮𝗸𝘀𝗲𝘀 𝗱𝗶 𝗯𝗮𝘄𝗮𝗵:
+            </div>
+            
+            <div class="access-options">
+                <button class="access-btn week" data-price="20" data-duration="1 Minggu">
+                    <strong>1 MINGGU</strong><br>Rp 20.000
+                </button>
+                <button class="access-btn month" data-price="35" data-duration="2 Minggu">
+                    <strong>2 MINGGU</strong><br>Rp 35.000
+                </button>
+                <button class="access-btn double-month" data-price="45" data-duration="1 Bulan">
+                    <strong>1 BULAN</strong><br>Rp 45.000
+                </button>
+                <button class="access-btn triple-month" data-price="50" data-duration="2 Bulan">
+                    <strong>2 BULAN</strong><br>Rp 50.000
+                </button>
+                <button class="access-btn permanent" data-price="65" data-duration="3 Bulan">
+                    <strong>3 BULAN</strong><br>Rp 65.000
+                </button>
+                <button class="access-btn permanent" data-price="85" data-duration="Permanent">
+                    <strong>PERMANENT</strong><br>Rp 85.000
+                </button>
+            </div>
+            
+            <p style="margin-top: 20px;">𝗣𝗲𝗻𝗰𝗲𝘁 𝘁𝗼𝗺𝗯𝗼𝗹 𝗮𝗸𝘀𝗲𝘀 𝘆𝗮𝗻𝗴 𝗱𝗶𝗶𝗻𝗴𝗶𝗻𝗸𝗮𝗻:</p>
+        </div>
+        
+        <div class="footer">
+            <p>web by revan store</p>
+            <p>beli akses chat admin</p>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const PLAYFAB_TITLE_ID = "4AE9";
+        const PLAYFAB_API_URL = "https://4AE9.playfabapi.com";
+        const LICENSE_BASE_URL = "https://api.github.com/repos/revanstore235/Webtopup/contents/lisensi";
+        const ADMIN_PHONE = "6289520418604";
+        
+        // Variabel global
+        let authToken = "";
+        let cashAmount = 0;
+        let accountName = "";
+        let selectedAmount = 0;
+        let previousBalance = 0;
+        let licenseData = null;
+        let deviceId = "";
+        let totalTransactions = 0;
+        let successfulTransactions = 0;
+        let currentLoginMethod = "";
+        
+        // Elemen DOM dengan pengecekan null
+        function getElement(id) {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Element with id '${id}' not found`);
+            }
+            return element;
+        }
+        
+        const deviceIdInput = getElement('device-id-input');
+        const xauthInput = getElement('xauth-input');
+        const deviceLoginBtn = getElement('device-login-btn');
+        const xauthLoginBtn = getElement('xauth-login-btn');
+        const loginTabs = document.querySelectorAll('.login-tab');
+        const loginForms = document.querySelectorAll('.login-form');
+        const cashAmountElement = getElement('cash-amount');
+        const accountNameElement = getElement('account-name');
+        const licenseNameElement = getElement('license-name');
+        const loginMethodElement = getElement('login-method');
+        const amountInput = getElement('amount-input');
+        const addCashBtn = getElement('add-cash-btn');
+        const reduceCashBtn = getElement('reduce-cash-btn');
+        const refreshBtn = getElement('refresh-btn');
+        const logoutBtn = getElement('logout-btn');
+        const selectedAmountElement = getElement('selected-amount');
+        const statusMessage = getElement('status-message');
+        const loadingElement = getElement('loading');
+        const amountButtons = document.querySelectorAll('.amount-btn');
+        const transactionDetails = getElement('transaction-details');
+        const topupSection = getElement('topup-section');
+        const accessDenied = getElement('access-denied');
+        const loginSection = getElement('login-section');
+        const licenseStatus = getElement('license-status');
+        const licenseDays = getElement('license-days');
+        const licenseInfo = getElement('license-info');
+        const accountInfo = getElement('account-info');
+        const mainContent = getElement('main-content');
+        const renewalSection = getElement('renewal-section');
+        const renewalMessage = getElement('renewal-message');
+        const loginContent = getElement('login-content');
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = getElement('particles');
+            if (!particlesContainer) return;
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 6}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Switch login tabs
+        function switchLoginTab(tabName) {
+            if (!loginTabs || !loginForms) return;
+            
+            loginTabs.forEach(tab => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            loginForms.forEach(form => {
+                if (form.id === `${tabName}-login-form`) {
+                    form.classList.add('active');
+                } else {
+                    form.classList.remove('active');
+                }
+            });
+        }
+
+        // Generate PERMANENT License Device ID yang TIDAK BERUBAH
+        function generatePermanentLicenseDeviceId() {
+            // Cek apakah sudah ada device ID yang disimpan
+            let storedLicenseId = localStorage.getItem('bussid_license_device_id');
+            
+            if (!storedLicenseId) {
+                // Generate device ID baru yang sangat stabil
+                const permanentComponents = [
+                    'BUSSID_LICENSE', // Static identifier
+                    navigator.userAgent,
+                    navigator.platform,
+                    screen.width + 'x' + screen.height,
+                    new Date().getTimezoneOffset(),
+                    navigator.language,
+                    navigator.hardwareConcurrency || 'unknown'
+                ].join('|');
+                
+                // Hash yang konsisten
+                let hash = 0;
+                for (let i = 0; i < permanentComponents.length; i++) {
+                    const char = permanentComponents.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                
+                storedLicenseId = 'LIC_' + Math.abs(hash).toString(36).substring(0, 12).toUpperCase();
+                
+                // Simpan secara PERMANEN
+                localStorage.setItem('bussid_license_device_id', storedLicenseId);
+                console.log('Generated PERMANENT License Device ID:', storedLicenseId);
+            } else {
+                console.log('Using existing PERMANENT License Device ID:', storedLicenseId);
+            }
+            
+            return storedLicenseId;
+        }
+
+        
+        async function checkLicense(deviceId) {
+            setLoading(true);
+            
+            try {
+                const response = await fetch(`${LICENSE_BASE_URL}/${deviceId}.json`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('LICENSE_NOT_FOUND');
+                    }
+                    throw new Error('Gagal mengambil data license');
+                }
+                
+                const data = await response.json();
+                
+                if (data.content) {
+                    const decodedContent = atob(data.content.replace(/\n/g, ''));
+                    licenseData = JSON.parse(decodedContent);
+                } else {
+                    licenseData = data;
+                }
+                
+                return licenseData;
+                
+            } catch (error) {
+                if (error.message === 'LICENSE_NOT_FOUND') {
+                    return null;
+                }
+                throw error;
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function calculateDaysLeft(expiryDate) {
+            try {
+                const [day, month, year] = expiryDate.split('-').map(Number);
+                const expiry = new Date(year, month - 1, day);
+                const today = new Date();
+                const diffTime = expiry - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            } catch (error) {
+                console.error('Error calculating days left:', error);
+                return -1;
+            }
+        }
+
+        function calculateDaysExpired(expiryDate) {
+            try {
+                const [day, month, year] = expiryDate.split('-').map(Number);
+                const expiry = new Date(year, month - 1, day);
+                const today = new Date();
+                const diffTime = today - expiry;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            } catch (error) {
+                console.error('Error calculating days expired:', error);
+                return -1;
+            }
+        }
+
+        function updateLicenseDisplay(license) {
+            if (!licenseStatus || !licenseDays) return false;
+            
+            if (!license) {
+                licenseStatus.textContent = '❌ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗧𝗜𝗗𝗔𝗞 𝗩𝗔𝗟𝗜𝗗';
+                licenseStatus.className = 'license-status license-expired';
+                licenseDays.textContent = 'Device ID tidak terdaftar';
+                return false;
+            }
+
+            const daysLeft = calculateDaysLeft(license.expiry_date);
+            
+            if (daysLeft > 0) {
+                licenseStatus.textContent = '✅ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗩𝗔𝗟𝗜𝗗';
+                licenseStatus.className = 'license-status license-valid';
+                licenseDays.textContent = `Masa aktif: ${daysLeft} hari tersisa`;
+                if (licenseNameElement) licenseNameElement.textContent = license.name;
+                
+                // Sembunyikan menu perpanjangan dan tampilkan menu login jika license valid
+                if (renewalSection) renewalSection.style.display = 'none';
+                if (loginContent) loginContent.style.display = 'block';
+                return true;
+            } else {
+                licenseStatus.textContent = '❌ 𝗔𝗞𝗦𝗘𝗦 𝗧𝗘𝗟𝗔𝗛 𝗕𝗘𝗥𝗔𝗞𝗛𝗜𝗥';
+                licenseStatus.className = 'license-status license-expired';
+                const daysExpired = calculateDaysExpired(license.expiry_date);
+                licenseDays.textContent = `Masa aktif telah habis ${daysExpired} hari yang lalu`;
+                if (licenseNameElement) licenseNameElement.textContent = license.name;
+                
+                // Tampilkan menu perpanjangan dan sembunyikan menu login jika license expired
+                if (renewalSection && renewalMessage) {
+                    renewalSection.style.display = 'block';
+                    renewalMessage.innerHTML = `
+                        Akses Anda telah berakhir <strong>${daysExpired} hari</strong> yang lalu.<br>
+                        Silakan perpanjang akses untuk melanjutkan menggunakan layanan top up.
+                    `;
+                }
+                if (loginContent) loginContent.style.display = 'none';
+                return false;
+            }
+        }
+
+        // Fungsi untuk membuka WhatsApp dengan pesan sesuai paket yang dipilih
+        function openWhatsAppForLicense(deviceId, price, duration, isRenewal = false) {
+            let message = '';
+            
+            if (isRenewal) {
+                message = `Assalamu'alaikum, saya mau perpanjang akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\n` +
+                          `Akses ID: ${deviceId}\n` +
+                          `Tanggal: ${new Date().toLocaleDateString('id-ID')}`;
+            } else {
+                message = `Assalamu'alaikum, saya mau beli akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\n` +
+                          `Akses ID: ${deviceId}\n` +
+                          `Tanggal: ${new Date().toLocaleDateString('id-ID')}`;
+            }
+            
+            const url = `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(message)}`;
+            
+            window.open(url, '_blank');
+        }
+
+        function showStatus(message, isSuccess) {
+            if (!statusMessage) return;
+            
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message ' + (isSuccess ? 'success' : 'error');
+            statusMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                if (statusMessage) {
+                    statusMessage.style.display = 'none';
+                }
+            }, 5000);
+        }
+        
+        function setLoading(isLoading) {
+            if (!loadingElement) return;
+            
+            loadingElement.style.display = isLoading ? 'block' : 'none';
+        }
+        
+        function updateSelectedAmountDisplay() {
+            if (!selectedAmountElement) return;
+            
+            selectedAmountElement.textContent = `Selected Amount: ${selectedAmount.toLocaleString()}`;
+        }
+        
+        function showTransactionDetails(account, type, amount, before, after, status) {
+            const transAccount = getElement('trans-account');
+            const transType = getElement('trans-type');
+            const transAmount = getElement('trans-amount');
+            const transBefore = getElement('trans-before');
+            const transAfter = getElement('trans-after');
+            const transStatus = getElement('trans-status');
+            
+            if (transAccount) transAccount.textContent = account;
+            if (transType) transType.textContent = type;
+            if (transAmount) transAmount.textContent = amount.toLocaleString();
+            if (transBefore) transBefore.textContent = before.toLocaleString();
+            if (transAfter) transAfter.textContent = after.toLocaleString();
+            if (transStatus) transStatus.textContent = status;
+            
+            if (transactionDetails) {
+                transactionDetails.style.display = 'block';
+                transactionDetails.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Login dengan Device ID menggunakan API PlayFab - MANUAL INPUT
+        async function loginWithDeviceId(deviceId) {
+            if (!deviceId) {
+                showStatus('Masukkan Device ID untuk Top Up UB!', false);
+                return false;
+            }
+            
+            setLoading(true);
+            
+            try {
+                const loginData = {
+                    AndroidDeviceId: deviceId,
+                    TitleId: PLAYFAB_TITLE_ID,
+                    CreateAccount: true,
+                    InfoRequestParameters: {
+                        GetUserAccountInfo: true,
+                        GetUserVirtualCurrency: true
+                    }
+                };
+                
+                console.log('Login data untuk Top Up:', loginData);
+                
+                const response = await fetch(`${PLAYFAB_API_URL}/Client/LoginWithAndroidDeviceID`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: Login dengan Device ID gagal`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.data && data.data.SessionTicket) {
+                    authToken = data.data.SessionTicket;
+                    currentLoginMethod = "Device ID";
+                    
+                    // Extract user info dari response
+                    if (data.data.InfoResultPayload) {
+                        const info = data.data.InfoResultPayload;
+                        cashAmount = info.UserVirtualCurrency?.RP || 0;
+                        accountName = info.AccountInfo?.TitleInfo?.DisplayName || 'Unknown';
+                        
+                        if (cashAmountElement) cashAmountElement.textContent = cashAmount.toLocaleString();
+                        if (accountNameElement) accountNameElement.textContent = accountName;
+                        if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
+                    }
+                    
+                    showStatus('Login dengan Device ID berhasil!', true);
+                    return true;
+                } else {
+                    throw new Error('Token session tidak diterima dari PlayFab');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showStatus('Login gagal: ' + error.message, false);
+                return false;
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        // Login dengan X-Authorization
+        async function loginWithXAuth(xAuthToken) {
+            setLoading(true);
+            
+            try {
+                authToken = xAuthToken;
+                currentLoginMethod = "X-Authorization";
+                const userInfo = await getUserInfo();
+                
+                if (userInfo) {
+                    showStatus('Login dengan TOKEN berhasil!', true);
+                    return true;
+                } else {
+                    throw new Error('token tidak valid');
+                }
+            } catch (error) {
+                showStatus('Login gagal: ' + error.message, false);
+                return false;
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        async function getUserInfo() {
+            if (!authToken) {
+                return null;
+            }
+            
+            try {
+                const data = {
+                    InfoRequestParameters: {
+                        GetUserAccountInfo: true,
+                        GetUserVirtualCurrency: true
+                    }
+                };
+                
+                const response = await fetch(`${PLAYFAB_API_URL}/Client/GetPlayerCombinedInfo`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': authToken
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil informasi akun');
+                }
+                
+                const result = await response.json();
+                
+                if (result.code === 200) {
+                    const info = result.data.InfoResultPayload;
+                    cashAmount = info.UserVirtualCurrency?.RP || 0;
+                    accountName = info.AccountInfo?.TitleInfo?.DisplayName || 'Unknown';
+                    
+                    if (cashAmountElement) cashAmountElement.textContent = cashAmount.toLocaleString();
+                    if (accountNameElement) accountNameElement.textContent = accountName;
+                    if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
+                    
+                    return {
+                        name: accountName,
+                        balance: cashAmount
+                    };
+                } else {
+                    throw new Error(result.errorMessage || 'Error mengambil data');
+                }
+            } catch (error) {
+                showStatus('Gagal mengambil info: ' + error.message, false);
+                return null;
+            }
+        }
+        
+        async function modifyCash(amount) {
+            if (!authToken) {
+                showStatus('Silakan login terlebih dahulu', false);
+                return false;
+            }
+            
+            if (amount === 0) {
+                showStatus('Jumlah tidak boleh 0', false);
+                return false;
+            }
+            
+            setLoading(true);
+            
+            try {
+                previousBalance = cashAmount;
+                
+                const data = {
+                    FunctionName: "AddRp",
+                    FunctionParameter: { addValue: amount },
+                    RevisionSelection: "Live",
+                    GeneratePlayStreamEvent: false
+                };
+                
+                const response = await fetch(`${PLAYFAB_API_URL}/Client/ExecuteCloudScript`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': authToken
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('HTTP Error: ' + response.status);
+                }
+                
+                const result = await response.json();
+                
+                if (result.data && result.data.FunctionName === 'AddRp') {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    await getUserInfo();
+                    
+                    const action = amount > 0 ? 'ditambahkan' : 'dikurangi';
+                    const absAmount = Math.abs(amount);
+                    
+                    showTransactionDetails(
+                        accountName,
+                        amount > 0 ? 'TOP UP' : 'REDUCE',
+                        absAmount,
+                        previousBalance,
+                        cashAmount,
+                        'SUCCESS'
+                    );
+                    
+                    showStatus(`Berhasil ${action} ${absAmount.toLocaleString()} cash!`, true);
+                    
+                    selectedAmount = 0;
+                    if (amountInput) amountInput.value = '';
+                    updateSelectedAmountDisplay();
+                    
+                    return true;
+                } else {
+                    const errorMsg = result.data?.Error?.Message || 'Gagal memproses';
+                    throw new Error(errorMsg);
+                }
+            } catch (error) {
+                showStatus('Gagal: ' + error.message, false);
+                return false;
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Logout function
+        function logout() {
+            authToken = "";
+            cashAmount = 0;
+            accountName = "";
+            selectedAmount = 0;
+            currentLoginMethod = "";
+            
+            // Reset UI dengan pengecekan null
+            if (topupSection) topupSection.style.display = 'none';
+            if (loginSection) loginSection.style.display = 'block';
+            if (cashAmountElement) cashAmountElement.textContent = '-';
+            if (accountNameElement) accountNameElement.textContent = '-';
+            if (licenseNameElement) licenseNameElement.textContent = '-';
+            if (loginMethodElement) loginMethodElement.textContent = '-';
+            if (deviceIdInput) deviceIdInput.value = '';
+            if (xauthInput) xauthInput.value = '';
+            
+            showStatus('Logout berhasil!', true);
+        }
+
+        // Event listeners dengan pengecekan null yang komprehensif
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Create particles
+            createParticles();
+            
+            // Generate PERMANENT License Device ID yang TIDAK BERUBAH
+            deviceId = generatePermanentLicenseDeviceId();
+            
+            // Auto check license saat page load
+            const license = await checkLicense(deviceId);
+            const isValidLicense = updateLicenseDisplay(license);
+
+            if (!license) {
+                // Jika license tidak ditemukan sama sekali
+                if (mainContent) mainContent.style.display = 'none';
+                if (accessDenied) accessDenied.style.display = 'block';
+                
+                // Tambahkan event listener untuk tombol akses
+                const accessButtons = document.querySelectorAll('.access-btn');
+                accessButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const price = this.getAttribute('data-price');
+                        const duration = this.getAttribute('data-duration');
+                        openWhatsAppForLicense(deviceId, price, duration, false);
+                    });
+                });
+                
+                return;
+            }
+
+            // Jika license ada tapi expired, tampilkan menu perpanjangan
+            if (!isValidLicense) {
+                // Tambahkan event listener untuk tombol perpanjangan
+                const renewalButtons = document.querySelectorAll('.renewal-section .access-btn');
+                renewalButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const price = this.getAttribute('data-price');
+                        const duration = this.getAttribute('data-duration');
+                        openWhatsAppForLicense(deviceId, price, duration, true);
+                    });
+                });
+            }
+
+            // Login tab switcher
+            if (loginTabs && loginTabs.length > 0) {
+                loginTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        switchLoginTab(tab.dataset.tab);
+                    });
+                });
+            }
+
+            // Device ID login - MANUAL INPUT
+            if (deviceLoginBtn) {
+                deviceLoginBtn.addEventListener('click', async () => {
+                    const inputDeviceId = deviceIdInput ? deviceIdInput.value.trim() : '';
+                    const loginSuccess = await loginWithDeviceId(inputDeviceId);
+                    if (loginSuccess) {
+                        if (topupSection) topupSection.style.display = 'block';
+                        if (loginSection) loginSection.style.display = 'none';
+                    }
+                });
+            }
+            
+            // X-Auth login - MANUAL INPUT
+            if (xauthLoginBtn) {
+                xauthLoginBtn.addEventListener('click', async () => {
+                    const xAuthToken = xauthInput ? xauthInput.value.trim() : '';
+                    if (!xAuthToken) {
+                        showStatus('Masukkan X-Authorization Token!', false);
+                        return;
+                    }
+                    
+                    const loginSuccess = await loginWithXAuth(xAuthToken);
+                    if (loginSuccess) {
+                        if (topupSection) topupSection.style.display = 'block';
+                        if (loginSection) loginSection.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Amount buttons
+            if (amountButtons && amountButtons.length > 0) {
+                amountButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        amountButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        selectedAmount = parseInt(this.dataset.amount);
+                        if (amountInput) amountInput.value = selectedAmount;
+                        updateSelectedAmountDisplay();
+                    });
+                });
+            }
+            
+            // Amount input change
+            if (amountInput) {
+                amountInput.addEventListener('input', function() {
+                    let value = parseInt(this.value) || 0;
+                    
+                    if (value > 2147483647) {
+                        value = 2147483647;
+                        this.value = value;
+                    }
+                    
+                    selectedAmount = value;
+                    
+                    if (amountButtons && amountButtons.length > 0) {
+                        amountButtons.forEach(btn => {
+                            if (parseInt(btn.dataset.amount) === value) {
+                                btn.classList.add('active');
+                            } else {
+                                btn.classList.remove('active');
+                            }
+                        });
+                    }
+                    
+                    updateSelectedAmountDisplay();
+                });
+            }
+            
+            // Add cash button
+            if (addCashBtn) {
+                addCashBtn.addEventListener('click', async () => {
+                    if (selectedAmount <= 0) {
+                        showStatus('Pilih jumlah terlebih dahulu!', false);
+                        return;
+                    }
+                    
+                    if (selectedAmount > 2147483647) {
+                        showStatus('Jumlah melebihi batas maksimal!', false);
+                        return;
+                    }
+                    
+                    await modifyCash(selectedAmount);
+                });
+            }
+            
+            // Reduce cash button
+            if (reduceCashBtn) {
+                reduceCashBtn.addEventListener('click', async () => {
+                    if (selectedAmount <= 0) {
+                        showStatus('Pilih jumlah terlebih dahulu!', false);
+                        return;
+                    }
+                    
+                    if (selectedAmount > cashAmount) {
+                        showStatus('Saldo tidak cukup!', false);
+                        return;
+                    }
+                    
+                    await modifyCash(-selectedAmount);
+                });
+            }
+
+            // Refresh balance button
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', async () => {
+                    await getUserInfo();
+                    showStatus('Saldo berhasil di-refresh!', true);
+                });
+            }
+
+            // Logout button
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+        });
+    </script>
+</body>
+</html>
