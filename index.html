@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUSSID Money Top Up</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#001f3f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BUSSID Top Up">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
     <style>
         * {
             margin: 0;
@@ -85,6 +94,115 @@
             z-index: 1;
         }
         
+        /* STYLE POPUP INSTALL PWA */
+        .pwa-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10000;
+            max-width: 300px;
+            font-family: Arial;
+            animation: slideInUp 0.5s ease-out;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pwa-popup-content {
+            text-align: center;
+        }
+        
+        .pwa-popup h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .pwa-popup p {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .pwa-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .pwa-install-btn {
+            flex: 1;
+            background: white;
+            color: #0074D9;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .pwa-install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+        
+        .pwa-close-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pwa-close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .pwa-install-fixed {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* CSS yang sudah ada sebelumnya... */
         .section {
             padding: 25px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -794,6 +912,23 @@
 <body>
     <div class="floating-particles" id="particles"></div>
     
+    <!-- POPUP INSTALL PWA -->
+    <div class="pwa-popup" id="pwaPopup" style="display: none;">
+        <div class="pwa-popup-content">
+            <h3>📱 Install App</h3>
+            <p>Install BUSSID Top Up untuk pengalaman yang lebih baik!</p>
+            <div class="pwa-buttons">
+                <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
+                <button class="pwa-close-btn" id="pwaCloseBtn">Nanti</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FLOATING INSTALL BUTTON -->
+    <div class="pwa-install-fixed" id="pwaInstallFixed">
+        📱 Install App
+    </div>
+    
     <div class="container">
         <div class="feature-badge">PREMIUM</div>
         
@@ -1017,10 +1152,100 @@
     </div>
 
     <script>
+        // ==================== PWA FUNCTIONALITY ====================
+        let deferredPrompt;
+        const pwaPopup = document.getElementById('pwaPopup');
+        const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+        const pwaCloseBtn = document.getElementById('pwaCloseBtn');
+        const pwaInstallFixed = document.getElementById('pwaInstallFixed');
+
+        // Event untuk PWA install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Tampilkan popup setelah 3 detik
+            setTimeout(() => {
+                if (pwaPopup) {
+                    pwaPopup.style.display = 'block';
+                }
+            }, 3000);
+            
+            // Tampilkan floating button
+            if (pwaInstallFixed) {
+                pwaInstallFixed.style.display = 'flex';
+            }
+        });
+
+        // Install button handler
+        if (pwaInstallBtn) {
+            pwaInstallBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    
+                    if (outcome === 'accepted') {
+                        console.log('User installed the PWA');
+                        if (pwaPopup) pwaPopup.style.display = 'none';
+                        if (pwaInstallFixed) pwaInstallFixed.style.display = 'none';
+                    }
+                    
+                    deferredPrompt = null;
+                }
+            });
+        }
+
+        // Close popup handler
+        if (pwaCloseBtn) {
+            pwaCloseBtn.addEventListener('click', () => {
+                if (pwaPopup) {
+                    pwaPopup.style.display = 'none';
+                }
+            });
+        }
+
+        // Floating install button handler
+        if (pwaInstallFixed) {
+            pwaInstallFixed.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    
+                    if (outcome === 'accepted') {
+                        pwaInstallFixed.style.display = 'none';
+                    }
+                    
+                    deferredPrompt = null;
+                }
+            });
+        }
+
+        // Cek jika app sudah diinstall
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            if (pwaPopup) pwaPopup.style.display = 'none';
+            if (pwaInstallFixed) pwaInstallFixed.style.display = 'none';
+            deferredPrompt = null;
+        });
+
+        // Register Service Worker untuk PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // ==================== KODE ASLI BUSSID TOP UP ====================
         // Konfigurasi
         const PLAYFAB_TITLE_ID = "4AE9";
         const PLAYFAB_API_URL = "https://4AE9.playfabapi.com";
-        const LICENSE_BASE_URL = "https://api.github.com/repos/revanstore235/Webtopup/contents/lisensi";
+        const LICENSE_BASE_URL = "https://api.github.com/repos/Revansyabian/web/contents/lisensi";
         const ADMIN_PHONE = "6289520418604";
         
         // Variabel global
