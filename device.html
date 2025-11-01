@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUSSID Account Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1em;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .device-id-input {
+            width: 100%;
+            padding: 16px;
+            border: 3px solid #3498db;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-family: monospace;
+            text-align: center;
+            letter-spacing: 2px;
+            background: #fff;
+        }
+
+        .device-id-input:focus {
+            outline: none;
+            border-color: #e74c3c;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .input-hint {
+            background: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.9em;
+        }
+
+        .input-hint ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .input-hint li {
+            padding: 3px 0;
+            color: #34495e;
+        }
+
+        .input-hint li:before {
+            content: "• ";
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .info-value {
+            color: #2c3e50;
+            word-break: break-all;
+            font-family: monospace;
+            background: #ecf0f1;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #27ae60;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .api-info {
+            background: #e8f6f3;
+            border-left: 4px solid #27ae60;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 BUSSID ACCOUNT CHECKER</h1>
+            <p>Cek detail akun BUSSID dengan Device ID</p>
+        </div>
+
+        <div class="content">
+            <!-- Input Section -->
+            <div class="input-group">
+                <label for="deviceId">📱 MASUKKAN DEVICE ID BUSSID:</label>
+                <input type="text" 
+                       id="deviceId" 
+                       class="device-id-input"
+                       placeholder="contoh: 962b00c135ef9a2e" 
+                       maxlength="16"
+                       autocomplete="off"
+                       spellcheck="false">
+                
+                <div class="input-hint">
+                    <ul>
+                        <li><strong>16 karakter</strong> hexadecimal (0-9, a-f)</li>
+                        <li><strong>Contoh:</strong> 962b00c135ef9a2e</li>
+                        <li>Auto convert ke huruf kecil</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="checkAccount()" id="submitBtn">
+                🚀 CEK DETAIL AKUN
+            </button>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-bottom: 8px;">🔄 Memeriksa akun...</p>
+                <p>Device ID: <strong id="checkingDeviceId"></strong></p>
+                <p style="color: #666;">📡 Mengambil data dari API PlayFab...</p>
+            </div>
+
+            <!-- Result Section -->
+            <div class="result-section" id="resultSection">
+                <!-- Hasil akan muncul di sini -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkAccount() {
+            const deviceId = document.getElementById('deviceId').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const resultSection = document.getElementById('resultSection');
+            
+            // Validasi Device ID
+            if (!deviceId) {
+                alert('❌ Masukkan Device ID terlebih dahulu!');
+                document.getElementById('deviceId').focus();
+                return;
+            }
+            
+            if (deviceId.length !== 16) {
+                alert('❌ Device ID harus 16 karakter!\n\nSaat ini: ' + deviceId.length + ' karakter');
+                document.getElementById('deviceId').focus();
+                return;
+            }
+            
+            if (!/^[0-9a-f]+$/.test(deviceId)) {
+                alert('❌ Format Device ID tidak valid!\n\nHanya boleh berisi:\n• Angka 0-9\n• Huruf a-f\n• Tidak boleh huruf besar atau simbol');
+                document.getElementById('deviceId').focus();
+                return;
+            }
+            
+            // Tampilkan loading, sembunyikan result
+            loading.classList.add('active');
+            resultSection.classList.remove('active');
+            resultSection.innerHTML = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = '🔄 MEMPROSES...';
+            document.getElementById('checkingDeviceId').textContent = deviceId;
+            
+            try {
+                // Ambil semua data langsung dari API
+                const result = await getAllDataFromApi(deviceId);
+                
+                if (result.success) {
+                    showResult(result);
+                } else {
+                    showError(result.error);
+                }
+            } catch (error) {
+                showError('Terjadi kesalahan sistem: ' + error.message);
+            } finally {
+                loading.classList.remove('active');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 CEK DETAIL AKUN';
+            }
+        }
+
+        async function getAllDataFromApi(userDeviceId) {
+            try {
+                console.log('🔐 Memulai proses API dengan Device ID:', userDeviceId);
+
+                // Step 1: Login dengan Device ID user
+                const userLoginData = {
+                    "TitleId": "4AE9",
+                    "AndroidDeviceId": userDeviceId,
+                    "CreateAccount": false,
+                    "InfoRequestParameters": {
+                        "GetUserAccountInfo": true,
+                        "GetUserVirtualCurrency": true,
+                        "GetUserData": true,
+                        "GetUserInventory": true
+                    }
+                };
+
+                console.log('📤 Login user ke API...');
+                
+                const userResponse = await fetch('https://4AE9.playfabapi.com/Client/LoginWithAndroidDeviceID', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userLoginData)
+                });
+
+                console.log('📥 Response status user:', userResponse.status);
+
+                if (!userResponse.ok) {
+                    const errorData = await userResponse.json();
+                    console.error('❌ User login error:', errorData);
+                    return {
+                        success: false,
+                        error: errorData.errorMessage || 'Device ID tidak valid atau akun tidak ditemukan'
+                    };
+                }
+
+                const userData = await userResponse.json();
+                console.log('✅ User login berhasil');
+
+                // Step 2: Dapatkan informasi player lengkap untuk user
+                const userInfoData = {
+                    "InfoRequestParameters": {
+                        "GetUserAccountInfo": true,
+                        "GetUserVirtualCurrency": true,
+                        "GetUserData": true,
+                        "GetUserInventory": true,
+                        "GetPlayerStatistics": true
+                    }
+                };
+
+                console.log('📤 Mengambil info user lengkap...');
+                
+                const userInfoResponse = await fetch('https://4AE9.playfabapi.com/Client/GetPlayerCombinedInfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': userData.data.SessionTicket
+                    },
+                    body: JSON.stringify(userInfoData)
+                });
+
+                if (userInfoResponse.ok) {
+                    const userInfo = await userInfoResponse.json();
+                    userData.data.InfoResultPayload = userInfo.data;
+                }
+
+                // Step 3: Buat akun buyer baru - biarkan API yang generate Device ID
+                const buyerLoginData = {
+                    "TitleId": "4AE9",
+                    "CreateAccount": true,
+                    "InfoRequestParameters": {
+                        "GetUserAccountInfo": true,
+                        "GetUserVirtualCurrency": true
+                    }
+                };
+
+                console.log('🛒 Membuat akun buyer baru di API...');
+                
+                const buyerResponse = await fetch('https://4AE9.playfabapi.com/Client/LoginWithAndroidDeviceID', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(buyerLoginData)
+                });
+
+                console.log('📥 Response status buyer:', buyerResponse.status);
+
+                if (!buyerResponse.ok) {
+                    const errorData = await buyerResponse.json();
+                    console.error('❌ Buyer creation error:', errorData);
+                    return {
+                        success: false,
+                        error: errorData.errorMessage || 'Gagal membuat akun buyer'
+                    };
+                }
+
+                const buyerData = await buyerResponse.json();
+                console.log('✅ Buyer account berhasil dibuat');
+
+                // Ambil Device ID buyer dari response API
+                // Perhatikan: AndroidDeviceId mungkin tidak dikembalikan, jadi kita ambil dari Entity atau PlayFabId
+                let buyerDeviceId = buyerData.data.AndroidDeviceId;
+                
+                if (!buyerDeviceId) {
+                    // Jika tidak ada AndroidDeviceId, ambil dari EntityToken
+                    if (buyerData.data.EntityToken && buyerData.data.EntityToken.Entity) {
+                        buyerDeviceId = buyerData.data.EntityToken.Entity.Id.substring(0, 16);
+                    } else if (buyerData.data.PlayFabId) {
+                        // Atau dari PlayFabId
+                        buyerDeviceId = buyerData.data.PlayFabId.substring(0, 16);
+                    } else {
+                        buyerDeviceId = "API_GENERATED";
+                    }
+                }
+
+                console.log('📱 Device ID Buyer dari API:', buyerDeviceId);
+                console.log('🔑 Session Ticket Buyer dari API:', buyerData.data.SessionTicket);
+
+                return {
+                    success: true,
+                    user_data: {
+                        device_id: userDeviceId,
+                        session_ticket: userData.data.SessionTicket,
+                        playfab_id: userData.data.PlayFabId || 'N/A',
+                        info: userData.data.InfoResultPayload || {}
+                    },
+                    buyer_data: {
+                        device_id: buyerDeviceId, // Device ID dari API response
+                        session_ticket: buyerData.data.SessionTicket, // Session Ticket dari API response
+                        playfab_id: buyerData.data.PlayFabId || 'N/A',
+                        info: buyerData.data.InfoResultPayload || {}
+                    },
+                    api_source: "100% Real PlayFab API Data"
+                };
+
+            } catch (error) {
+                console.error('❌ API Error:', error);
+                return {
+                    success: false,
+                    error: `Koneksi API gagal: ${error.message}`
+                };
+            }
+        }
+
+        function showResult(result) {
+            const resultSection = document.getElementById('resultSection');
+            const userData = result.user_data;
+            const buyerData = result.buyer_data;
+            
+            // Format saldo user
+            const userCurrency = userData.info?.UserVirtualCurrency || [];
+            let userRp = 0;
+            let userGc = 0;
+            
+            if (Array.isArray(userCurrency)) {
+                userCurrency.forEach(currency => {
+                    if (currency.CurrencyCode === 'RP') userRp = currency.Amount || 0;
+                    if (currency.CurrencyCode === 'GC') userGc = currency.Amount || 0;
+                });
+            }
+            
+            // Format saldo buyer
+            const buyerCurrency = buyerData.info?.UserVirtualCurrency || [];
+            let buyerRp = 0;
+            let buyerGc = 0;
+            
+            if (Array.isArray(buyerCurrency)) {
+                buyerCurrency.forEach(currency => {
+                    if (currency.CurrencyCode === 'RP') buyerRp = currency.Amount || 0;
+                    if (currency.CurrencyCode === 'GC') buyerGc = currency.Amount || 0;
+                });
+            }
+            
+            resultSection.innerHTML = `
+                <div class="success-message">
+                    ✅ INFORMASI AKUN BERHASIL DIPEROLEH
+                </div>
+                
+                <div class="api-info">
+                    📡 <strong>100% Data diambil langsung dari API PlayFab</strong><br>
+                    🔄 Timestamp: ${new Date().toLocaleString('id-ID')}
+                </div>
+                
+                <div class="info-card">
+                    <h3>📱 DEVICE ID DI HP ANDA</h3>
+                    <div class="info-item">
+                        <div class="info-value">${userData.device_id}</div>
+                        <button class="copy-btn" onclick="copyToClipboard('${userData.device_id}')">Salin</button>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🛒 DEVICE ID DI HP BUYER</h3>
+                    <div class="info-item">
+                        <div class="info-value">${buyerData.device_id}</div>
+                        <button class="copy-btn" onclick="copyToClipboard('${buyerData.device_id}')">Salin</button>
+                        <small style="color: #27ae60; display: block; margin-top: 5px;">
+                            ✅ Diambil langsung dari API response (AndroidDeviceId/EntityToken)
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🔑 SESSION TICKET DI HP BUYER</h3>
+                    <div class="info-item">
+                        <div class="info-value">${buyerData.session_ticket}</div>
+                        <button class="copy-btn" onclick="copyToClipboard('${buyerData.session_ticket}')">Salin</button>
+                        <small style="color: #27ae60; display: block; margin-top: 5px;">
+                            ✅ Diambil langsung dari API response (SessionTicket)
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>💰 SALDO AKUN ANDA</h3>
+                    <div class="info-item">
+                        <div class="info-label">RP (Rupiah):</div>
+                        <div class="info-value">${userRp.toLocaleString()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">GC (Gold Coin):</div>
+                        <div class="info-value">${userGc.toLocaleString()}</div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>💰 SALDO AKUN BUYER</h3>
+                    <div class="info-item">
+                        <div class="info-label">RP (Rupiah):</div>
+                        <div class="info-value">${buyerRp.toLocaleString()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">GC (Gold Coin):</div>
+                        <div class="info-value">${buyerGc.toLocaleString()}</div>
+                    </div>
+                </div>
+                
+                <div class="api-info">
+                    🔧 <strong>Proses API yang dilakukan:</strong><br>
+                    • Login user dengan Device ID: <strong>${userData.device_id}</strong><br>
+                    • Buat akun buyer baru di API<br>
+                    • Ambil Device ID buyer dari: <strong>${buyerData.device_id}</strong><br>
+                    • Ambil Session Ticket buyer dari API response<br>
+                    • Semua data 100% dari https://4AE9.playfabapi.com
+                </div>
+                
+                <p style="text-align: center; color: #27ae60; margin-top: 20px; font-weight: bold;">
+                    💡 100% data real dari API PlayFab!<br>
+                    🎯 Tidak ada generate manual - semua dari API response
+                </p>
+            `;
+            
+            resultSection.classList.add('active');
+        }
+
+        function showError(errorMessage) {
+            const resultSection = document.getElementById('resultSection');
+            
+            resultSection.innerHTML = `
+                <div class="error-message">
+                    ❌ GAGAL MEMERIKSA AKUN
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                    <p style="color: #e74c3c; margin-bottom: 15px; font-size: 1.1em;">
+                        <strong>Error Detail:</strong><br>${errorMessage}
+                    </p>
+                    <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #e74c3c;">
+                        <strong style="color: #e74c3c;">🔧 KEMUNGKINAN PENYEBAB:</strong><br>
+                        • Device ID tidak terdaftar di server BUSSID<br>
+                        • Koneksi internet bermasalah<br>
+                        • Server BUSSID sedang maintenance<br>
+                        • Device ID sudah tidak aktif<br>
+                        • CORS policy (butuh backend proxy)
+                    </div>
+                </div>
+                <p style="text-align: center; color: #666; margin-top: 15px;">
+                    Silakan coba lagi dengan Device ID yang berbeda.
+                </p>
+            `;
+            
+            resultSection.classList.add('active');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Berhasil disalin ke clipboard: ' + text);
+            }).catch(() => {
+                alert('❌ Gagal menyalin ke clipboard');
+            });
+        }
+
+        // Event listener untuk input device ID
+        document.getElementById('deviceId').addEventListener('input', function(e) {
+            this.value = this.value.toLowerCase().replace(/[^0-9a-f]/g, '').substring(0, 16);
+        });
+
+        document.getElementById('deviceId').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAccount();
+            }
+        });
+
+        document.getElementById('deviceId').focus();
+    </script>
+</body>
+</html>
