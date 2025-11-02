@@ -907,6 +907,29 @@
             font-size: 15px;
             line-height: 1.5;
         }
+        
+        /* CSS untuk checkbox ingat device ID */
+        .remember-device {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .remember-device input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .remember-device label {
+            color: #CCCCCC;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -997,6 +1020,13 @@
                                 <div class="input-label">𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝗱 𝗧𝗼𝗽 𝘂𝗽</div>
                                 <input type="text" class="input-field" id="device-id-input" placeholder="𝗠𝗮𝘀𝘂𝗸𝗮𝗻 𝗗𝗲𝘃𝗶𝗰𝗲 𝗜𝗱">
                             </div>
+                            
+                            <!-- Checkbox Ingat Device ID -->
+                            <div class="remember-device">
+                                <input type="checkbox" id="remember-device-id">
+                                <label for="remember-device-id">Ingat Device ID saya</label>
+                            </div>
+                            
                             <button class="button button-primary" id="device-login-btn" style="width: 100%;">
                                 𝗟𝗢𝗚𝗜𝗡 𝗟𝗘𝗪𝗔𝗧 𝗗𝗘𝗩𝗜𝗖𝗘 𝗜𝗗
                             </button>
@@ -1043,16 +1073,27 @@
                 <div class="input-group">
                     <div class="input-label">𝗠𝗔𝗦𝗨𝗞𝗔𝗡 𝗝𝗨𝗠𝗟𝗔𝗛 (1 - 2,147,483,647)</div>
                     <input type="number" class="input-field" id="amount-input" placeholder="Masukkan jumlah" min="1" max="2147483647">
-                    <div class="max-info">𝗠𝗔𝗫𝗜𝗠𝗔𝗟 𝗨𝗕: 2,147,483,647</div>
+                    <div class="max-info">𝗠𝗔𝗫𝗜𝗠𝗔𝗟 𝗨𝗕: 2.147.483.647</div>
                 </div>
                 
                 <div class="amount-controls">
                     <button class="amount-btn" data-amount="50000000">50 JT</button>
                     <button class="amount-btn" data-amount="100000000">100 JT</button>
+                    <button class="amount-btn" data-amount="200000000">200 JT</button>
+                    <button class="amount-btn" data-amount="250000000">250 JT</button>
+                    <button class="amount-btn" data-amount="300000000">300 JT</button>
+                    <button class="amount-btn" data-amount="350000000">350 JT</button>
+                    <button class="amount-btn" data-amount="400000000">400 JT</button>
+                    <button class="amount-btn" data-amount="450000000">450 JT</button>
                     <button class="amount-btn" data-amount="500000000">500 JT</button>
-                    <button class="amount-btn" data-amount="1000000000">1 M</button>
-                </div>
-                
+                    <button class="amount-btn" data-amount="550000000">550 JT</button>
+                    <button class="amount-btn" data-amount="600000000">600 JT</button>
+                    <button class="amount-btn" data-amount="650000000">650 JT</button>
+                    <button class="amount-btn" data-amount="700000000">700 JT</button>
+                    <button class="amount-btn" data-amount="750000000">750 JT</button>
+                    <button class="amount-btn" data-amount="1000000000">1 M</button>   
+                    <button class="amount-btn" data-amount="2147483647">2 M</button>
+                   </div>
                 <div class="amount-display" id="selected-amount">Selected Amount: 0</div>
                 
                 <div class="button-group">
@@ -1300,6 +1341,36 @@
         const renewalSection = getElement('renewal-section');
         const renewalMessage = getElement('renewal-message');
         const loginContent = getElement('login-content');
+        const rememberDeviceIdCheckbox = getElement('remember-device-id');
+
+        // Fungsi untuk menyimpan device ID ke localStorage
+        function saveDeviceIdToLocalStorage(deviceId) {
+            if (rememberDeviceIdCheckbox && rememberDeviceIdCheckbox.checked) {
+                localStorage.setItem('bussid_saved_device_id', deviceId);
+                localStorage.setItem('bussid_remember_device', 'true');
+                console.log('Device ID disimpan ke localStorage:', deviceId);
+            } else {
+                localStorage.removeItem('bussid_saved_device_id');
+                localStorage.removeItem('bussid_remember_device');
+                console.log('Device ID dihapus dari localStorage');
+            }
+        }
+
+        // Fungsi untuk memuat device ID dari localStorage
+        function loadDeviceIdFromLocalStorage() {
+            const savedDeviceId = localStorage.getItem('bussid_saved_device_id');
+            const rememberDevice = localStorage.getItem('bussid_remember_device');
+            
+            if (savedDeviceId && deviceIdInput) {
+                deviceIdInput.value = savedDeviceId;
+                console.log('Device ID dimuat dari localStorage:', savedDeviceId);
+            }
+            
+            if (rememberDevice === 'true' && rememberDeviceIdCheckbox) {
+                rememberDeviceIdCheckbox.checked = true;
+                console.log('Checkbox "Ingat Device ID" dicentang');
+            }
+        }
 
         // Create floating particles
         function createParticles() {
@@ -1599,6 +1670,9 @@
                         if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
                     }
                     
+                    // Simpan device ID ke localStorage jika checkbox dicentang
+                    saveDeviceIdToLocalStorage(deviceId);
+                    
                     showStatus('Login dengan Device ID berhasil!', true);
                     return true;
                 } else {
@@ -1787,6 +1861,9 @@
             
             // Generate PERMANENT License Device ID yang TIDAK BERUBAH
             deviceId = generatePermanentLicenseDeviceId();
+            
+            // Load saved device ID dari localStorage
+            loadDeviceIdFromLocalStorage();
             
             // Auto check license saat page load
             const license = await checkLicense(deviceId);
