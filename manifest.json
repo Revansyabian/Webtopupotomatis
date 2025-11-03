@@ -2,7 +2,7 @@
   "name": "BUSSID TopUp",
   "short_name": "BUSSID TopUp",
   "description": "Aplikasi TopUp BUSSID Money",
-  "start_url": "/",
+  "start_url": "/top up bussid",
   "display": "standalone",
   "background_color": "#1ac0f2",
   "theme_color": "#10baeb",
