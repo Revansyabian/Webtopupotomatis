@@ -1,8 +1,8 @@
 {
   "name": "Vanz",
   "device_id": "LIC_GEUFNE",
-  "expiry_date": "11-11-2025",
+  "expiry_date": "11-11-9999",
   "status": "active",
-  "package": "TRIAL",
+  "package": "PERMANEN",
   "max_topup": 1000000000
 }
