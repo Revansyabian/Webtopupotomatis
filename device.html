@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="id" dir="ltr">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUSSID Money Top Up</title>
     
-    <!-- ========== PWA META TAGS ========== -->
-    <link rel="manifest" href="manifest.json" id="manifest">
-    <meta name="theme-color" content="#0074D9">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#001f3f">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="BUSSID TopUp">
-    <meta name="application-name" content="BUSSID TopUp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="msapplication-TileColor" content="#0074D9">
-    <meta name="msapplication-TileImage" content="https://cdn-icons-png.flaticon.com/512/2972/2972185.png">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2972/2972185.png">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2972/2972185.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="BUSSID Top Up">
+    
+    <!-- Import Font untuk cetakan -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk emoji -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         * {
@@ -97,6 +97,1074 @@
             font-weight: 500;
             position: relative;
             z-index: 1;
+        }
+        
+        /* ============ WELCOME POPUP ============ */
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #001f3f, #003366);
+            z-index: 10002;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .welcome-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: popupScale 0.6s ease-out;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        @keyframes popupScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .welcome-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #00BFFF;
+            text-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
+            animation: bounce 2s infinite;
+        }
+        
+        .welcome-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00BFFF, #00FF88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #CCCCCC;
+            line-height: 1.4;
+        }
+        
+        .welcome-license-info {
+            background: rgba(0, 191, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            text-align: left;
+        }
+        
+        .welcome-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome-info-label {
+            color: #CCCCCC;
+            font-size: 14px;
+        }
+        
+        .welcome-info-value {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .welcome-button {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .welcome-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 191, 255, 0.6);
+        }
+        
+        /* ============ MUSIC PLAYER ============ */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9998;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .music-icon {
+            font-size: 20px;
+            color: #00BFFF;
+            cursor: pointer;
+        }
+        
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .music-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .music-volume {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #00BFFF;
+            cursor: pointer;
+        }
+        
+        .music-info {
+            font-size: 12px;
+            color: #CCCCCC;
+            margin-left: 10px;
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* ============ LICENSE INFO ============ */
+        .license-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .license-status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .license-valid {
+            color: #00FF88;
+        }
+        
+        .license-expired {
+            color: #FF4444;
+        }
+        
+        .license-days {
+            font-size: 14px;
+            color: #CCCCCC;
+        }
+        
+        .renewal-section {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .renewal-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #FF4444;
+        }
+        
+        .renewal-message {
+            color: #CCCCCC;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .access-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .access-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #FFFFFF;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .access-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .access-btn:hover::before {
+            left: 100%;
+        }
+        
+        .access-btn:hover {
+            background: rgba(0, 191, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .access-btn.week {
+            background: linear-gradient(135deg, #FF6B6B, #FFA500);
+            border-color: #FFA500;
+        }
+        
+        .access-btn.month {
+            background: linear-gradient(135deg, #00A86B, #00CC88);
+            border-color: #00CC88;
+        }
+        
+        .access-btn.permanent {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            border-color: #00BFFF;
+        }
+        
+        .access-btn.double-month {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            border-color: #E91E63;
+        }
+        
+        .access-btn.triple-month {
+            background: linear-gradient(135deg, #FF5722, #FF9800);
+            border-color: #FF9800;
+        }
+        
+        .access-denied {
+            text-align: center;
+            padding: 40px 20px;
+            color: #FF4444;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .access-denied h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .access-denied p {
+            color: #CCCCCC;
+            margin-bottom: 20px;
+        }
+        
+        .auto-wa-notice {
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            color: #FFC107;
+        }
+        
+        /* ============ SISA CSS YANG SUDAH ADA ============ */
+        /* ... (CSS yang sudah ada dari kode kedua, tetap dimasukkan di sini) ... */
+        .section {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #00BFFF;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+        
+        .section-title::before {
+            content: '▶';
+            font-size: 14px;
+            color: #00BFFF;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            color: #CCCCCC;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 15px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+        }
+        
+        .login-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .login-tab.active {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            box-shadow: 0 2px 10px rgba(0, 191, 255, 0.3);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #CCCCCC;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field::placeholder {
+            color: #999999;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00BFFF;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .amount-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .amount-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #FFFFFF;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .amount-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .amount-btn:hover::before {
+            left: 100%;
+        }
+        
+        .amount-btn:hover {
+            background: rgba(0, 191, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .amount-btn.active {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            border-color: #00BFFF;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .button {
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .button:hover::before {
+            left: 100%;
+        }
+        
+        .button-primary {
+            background: linear-gradient(135deg, #0074D9, #00BFFF);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.4);
+        }
+        
+        .button-secondary {
+            background: linear-gradient(135deg, #0056b3, #0074D9);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 116, 217, 0.4);
+        }
+        
+        .button-success {
+            background: linear-gradient(135deg, #00A86B, #00CC88);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 204, 136, 0.4);
+        }
+        
+        .button-danger {
+            background: linear-gradient(135deg, #DC3545, #FF6B6B);
+            color: white;
+            box-shadow: 0 4px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 191, 255, 0.6);
+        }
+        
+        .button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+        
+        .amount-display {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            color: #00BFFF;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 191, 255, 0.8); }
+            to { text-shadow: 0 0 30px rgba(0, 191, 255, 1); }
+        }
+        
+        .max-info {
+            text-align: center;
+            color: #CCCCCC;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        
+        .status-message {
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            font-weight: 500;
+            border: 1px solid;
+            font-size: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success {
+            background: rgba(0, 255, 0, 0.15);
+            color: #00FF88;
+            border-color: #00FF88;
+        }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.15);
+            color: #FF4444;
+            border-color: #FF4444;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #00BFFF;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .login-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #CCCCCC;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .transaction-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .transaction-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #00BFFF;
+        }
+        
+        .transaction-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .transaction-label {
+            color: #CCCCCC;
+            font-size: 14px;
+        }
+        
+        .transaction-value {
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .transaction-success {
+            color: #00FF88;
+        }
+        
+        .transaction-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 191, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #00BFFF;
+        }
+        
+        .transaction-message {
+            color: #CCCCCC;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(0, 191, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #FF6B6B, #FFE66D);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .remember-device {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .remember-device input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .remember-device label {
+            color: #CCCCCC;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .send-buyer-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .send-buyer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        
+        .buyer-modal {
+            background: white;
+            color: black;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .buyer-header {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 15px -20px;
+        }
+        
+        .buyer-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .buyer-subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .buyer-content {
+            text-align: left;
+            margin: 15px 0;
+        }
+        
+        .buyer-input-group {
+            margin-bottom: 15px;
+        }
+        
+        .buyer-input-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .buyer-input-field {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .buyer-input-field:focus {
+            outline: none;
+            border-color: #25D366;
+            box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.1);
+        }
+        
+        .buyer-message-box {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            border-left: 3px solid #25D366;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .buyer-message-preview {
+            font-family: 'Roboto', sans-serif;
+            white-space: pre-wrap;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .buyer-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .buyer-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .buyer-btn.primary {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+        
+        .buyer-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .buyer-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .print-transaction-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FFA500);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .print-transaction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        #transaction-photo-canvas {
+            display: none;
+        }
+        
+        .offline-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF4444;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+        
+        .online-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00A86B;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: modalPop 0.4s ease-out;
+        }
+        
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .modal h3 {
+            color: #FF4444;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .modal p {
+            color: #CCCCCC;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .transaction-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .transaction-emoji {
+            font-size: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
         }
         
         /* STYLE POPUP INSTALL PWA */
@@ -202,42 +1270,79 @@
             animation: bounce 2s infinite;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-5px); }
+        .hidden-section {
+            display: none;
         }
-
-        /* CSS lainnya tetap sama seperti sebelumnya */
-        .section {
-            padding: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #00BFFF;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
-        }
-        
-        /* ... (CSS lainnya sama seperti kode awal) ... */
-        
     </style>
 </head>
 <body>
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="welcome-content">
+            <div class="welcome-icon">🎮</div>
+            <div class="welcome-title">WELCOME</div>
+            <div class="welcome-message" id="welcomeMessage">Loading license information...</div>
+            
+            <div class="welcome-license-info">
+                <div class="welcome-info-row">
+                    <div class="welcome-info-label">Status License:</div>
+                    <div class="welcome-info-value" id="welcomeLicenseStatus">Checking...</div>
+                </div>
+                <div class="welcome-info-row">
+                    <div class="welcome-info-label">Masa Aktif:</div>
+                    <div class="welcome-info-value" id="welcomeLicenseDays">-</div>
+                </div>
+                <div class="welcome-info-row">
+                    <div class="welcome-info-label">Paket:</div>
+                    <div class="welcome-info-value" id="welcomeLicensePackage">-</div>
+                </div>
+            </div>
+            
+            <button class="welcome-button" id="closeWelcomeBtn">MASUK KE APLIKASI</button>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <div class="music-icon" id="musicToggle">
+            <i class="fas fa-music"></i>
+        </div>
+        <div class="music-controls">
+            <button class="music-btn" id="prevBtn">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="music-btn" id="playPauseBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="music-btn" id="nextBtn">
+                <i class="fas fa-step-forward"></i>
+            </button>
+            <div class="music-volume">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider">
+            </div>
+        </div>
+        <div class="music-info" id="musicInfo">Music: Off</div>
+    </div>
+
     <div class="floating-particles" id="particles"></div>
+    
+    <!-- Notifikasi Status Koneksi -->
+    <div class="offline-notification" id="offlineNotification">
+        ⚠️ Anda sedang offline
+    </div>
+    
+    <div class="online-notification" id="onlineNotification">
+        ✅ Koneksi pulih
+    </div>
     
     <!-- POPUP INSTALL PWA -->
     <div class="pwa-popup" id="pwaPopup" style="display: none;">
         <div class="pwa-popup-content">
-            <h3>📱 Install BUSSID App</h3>
-            <p>Install aplikasi untuk pengalaman yang lebih baik dan akses cepat!</p>
+            <h3>📱 Install App</h3>
+            <p>Install BUSSID Top Up untuk pengalaman yang lebih baik!</p>
             <div class="pwa-buttons">
-                <button class="pwa-install-btn" id="pwaInstallBtn">Install Sekarang</button>
+                <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
                 <button class="pwa-close-btn" id="pwaCloseBtn">Nanti</button>
             </div>
         </div>
@@ -245,7 +1350,7 @@
     
     <!-- FLOATING INSTALL BUTTON -->
     <div class="pwa-install-fixed" id="pwaInstallFixed">
-        📱 Install BUSSID App
+        📱 Install App
     </div>
     
     <div class="container">
@@ -340,9 +1445,10 @@
                         </div>
                     </div>
                     
-                    <div class="section-title">𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗦𝗜 𝗔𝗞𝗨𝗡</div>
+                    <!-- INFORMASI AKUN - AKAN DISEMBUNYIKAN SAAT BELUM LOGIN -->
+                    <div class="section-title hidden-section" id="account-info-title">𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗦𝗜 𝗔𝗞𝗨𝗡</div>
                     
-                    <div class="info-box" id="account-info">
+                    <div class="info-box hidden-section" id="account-info">
                         <div class="info-row">
                             <div class="info-label">𝗝𝗨𝗠𝗟𝗔𝗛 𝗨𝗔𝗡𝗚</div>
                             <div class="info-value" id="cash-amount">-</div>
@@ -416,27 +1522,39 @@
                 <div class="transaction-details" id="transaction-details">
                     <div class="transaction-title">𝗗𝗘𝗧𝗔𝗜𝗟 𝗧𝗥𝗔𝗡𝗦𝗔𝗞𝗦𝗜</div>
                     <div class="transaction-row">
-                        <div class="transaction-label">Name akun:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">👤</span> Nama Akun:
+                        </div>
                         <div class="transaction-value" id="trans-account">-</div>
                     </div>
                     <div class="transaction-row">
-                        <div class="transaction-label">𝗝𝗲𝗻𝗶𝘀 𝗧𝗿𝗮𝗻𝘀𝗮𝗸𝘀𝗶:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">📝</span> Jenis Transaksi:
+                        </div>
                         <div class="transaction-value" id="trans-type">-</div>
                     </div>
                     <div class="transaction-row">
-                        <div class="transaction-label">𝗨𝗮𝗻𝗴:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">💰</span> Jumlah:
+                        </div>
                         <div class="transaction-value" id="trans-amount">-</div>
                     </div>
                     <div class="transaction-row">
-                        <div class="transaction-label">𝗨𝗮𝗻𝗴 𝘀𝗲𝗯𝗲𝗹𝘂𝗺:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">📊</span> Saldo Sebelum:
+                        </div>
                         <div class="transaction-value" id="trans-before">-</div>
                     </div>
                     <div class="transaction-row">
-                        <div class="transaction-label">𝗨𝗮𝗻𝗴 𝘀𝗲𝘀𝘂𝗱𝗮𝗵:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">✅</span> Saldo Sesudah:
+                        </div>
                         <div class="transaction-value transaction-success" id="trans-after">-</div>
                     </div>
                     <div class="transaction-row">
-                        <div class="transaction-label">𝗦𝘁𝗮𝘁𝘂𝘀:</div>
+                        <div class="transaction-label">
+                            <span class="transaction-emoji">🔄</span> Status:
+                        </div>
                         <div class="transaction-value transaction-success" id="trans-status">-</div>
                     </div>
                     <div class="transaction-info">
@@ -444,6 +1562,18 @@
                             ✅ <strong>𝗧𝗼𝗽 𝘂𝗽 𝗕𝗲𝗿𝗵𝗮𝘀𝗶𝗹!</strong><br>
                             𝗕𝗲𝗿𝗵𝗮𝘀𝗶𝗹 𝗧𝗼𝗽 𝗨𝗽 𝗦𝗶𝗹𝗮𝗸𝗮𝗻 𝗖𝗲𝗸 𝗔𝗸𝘂𝗻 𝗮𝗻𝗱𝗮.
                         </div>
+                    </div>
+                    
+                    <!-- Button Group untuk Transaksi -->
+                    <div class="transaction-buttons">
+                        <button class="print-transaction-btn" id="print-transaction-btn">
+                            🖼️ FOTO TRANSAKSI HD
+                        </button>
+                        
+                        <!-- TOMBOL BARU: KIRIM KE BUYER -->
+                        <button class="send-buyer-btn" id="send-buyer-btn">
+                            📲 KIRIM KE BUYER
+                        </button>
                     </div>
                 </div>
             </div>
@@ -488,194 +1618,121 @@
         </div>
     </div>
 
+    <!-- Modal untuk Kirim ke Buyer -->
+    <div class="modal-overlay" id="buyer-modal-overlay">
+        <div class="buyer-modal" id="buyer-modal">
+            <div class="buyer-header">
+                <div class="buyer-title">KIRIM KE BUYER</div>
+                <div class="buyer-subtitle">Kirim detail transaksi via WhatsApp</div>
+            </div>
+            
+            <div class="buyer-content">
+                <div class="buyer-input-group">
+                    <label class="buyer-input-label">Nomor WhatsApp:</label>
+                    <input type="text" class="buyer-input-field" id="whatsapp-number-input" 
+                           placeholder="Contoh: 6281234567890">
+                </div>
+                
+                <div class="buyer-input-group">
+                    <label class="buyer-input-label">Pesan Tambahan:</label>
+                    <textarea class="buyer-input-field" id="additional-message" rows="2" 
+                              placeholder="Tambahkan pesan untuk buyer..."></textarea>
+                </div>
+                
+                <div class="buyer-message-box">
+                    <div class="buyer-input-label">Preview Pesan:</div>
+                    <div class="buyer-message-preview" id="message-preview">
+                        <!-- Preview akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buyer-actions">
+                <button class="buyer-btn secondary" id="close-buyer-modal">Batal</button>
+                <button class="buyer-btn primary" id="send-whatsapp-btn">📲 Kirim WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas untuk gambar transaksi HD -->
+    <canvas id="transaction-photo-canvas"></canvas>
+
+    <!-- Canvas untuk konversi ke gambar (tersembunyi) -->
+    <canvas id="screenshot-canvas" style="display: none;"></canvas>
+
     <script>
-        // ==================== PWA FUNCTIONALITY ====================
-        let deferredPrompt;
-        const pwaPopup = document.getElementById('pwaPopup');
-        const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-        const pwaCloseBtn = document.getElementById('pwaCloseBtn');
-        const pwaInstallFixed = document.getElementById('pwaInstallFixed');
-
-        // PWA Installation Prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('🎯 PWA Install Prompt Triggered');
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show custom install popup after 3 seconds
-            setTimeout(() => {
-                if (pwaPopup) {
-                    pwaPopup.style.display = 'block';
-                    console.log('📱 Showing custom install popup');
-                }
-            }, 3000);
-            
-            // Show floating install button
-            if (pwaInstallFixed) {
-                pwaInstallFixed.style.display = 'flex';
-                console.log('🔼 Showing floating install button');
-            }
-        });
-
-        // Install button handler
-        if (pwaInstallBtn) {
-            pwaInstallBtn.addEventListener('click', async () => {
-                console.log('🖱️ Install button clicked');
-                if (deferredPrompt) {
-                    // Show the native install prompt
-                    deferredPrompt.prompt();
-                    console.log('📲 Showing native install prompt');
-                    
-                    // Wait for the user to respond to the prompt
-                    const { outcome } = await deferredPrompt.userChoice;
-                    
-                    console.log(`User response to install prompt: ${outcome}`);
-                    
-                    if (outcome === 'accepted') {
-                        console.log('✅ User accepted the PWA installation');
-                        if (pwaPopup) pwaPopup.style.display = 'none';
-                        if (pwaInstallFixed) pwaInstallFixed.style.display = 'none';
-                    } else {
-                        console.log('❌ User dismissed the PWA installation');
-                    }
-                    
-                    // Clear the saved prompt since it can't be used again
-                    deferredPrompt = null;
-                } else {
-                    console.log('⚠️ No deferred prompt available');
-                }
-            });
-        }
-
-        // Close popup handler
-        if (pwaCloseBtn) {
-            pwaCloseBtn.addEventListener('click', () => {
-                console.log('❌ Close button clicked');
-                if (pwaPopup) {
-                    pwaPopup.style.display = 'none';
-                }
-            });
-        }
-
-        // Floating install button handler
-        if (pwaInstallFixed) {
-            pwaInstallFixed.addEventListener('click', async () => {
-                console.log('🖱️ Floating install button clicked');
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    
-                    if (outcome === 'accepted') {
-                        pwaInstallFixed.style.display = 'none';
-                        console.log('✅ User accepted installation from floating button');
-                    }
-                    
-                    deferredPrompt = null;
-                }
-            });
-        }
-
-        // Check if app is already installed
-        window.addEventListener('appinstalled', () => {
-            console.log('🎉 PWA was successfully installed');
-            if (pwaPopup) pwaPopup.style.display = 'none';
-            if (pwaInstallFixed) pwaInstallFixed.style.display = 'none';
-            deferredPrompt = null;
-            
-            // Show success message
-            showStatus('Aplikasi berhasil diinstall!', true);
-        });
-
-        // Register Service Worker untuk PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Use external service worker file
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(function(registration) {
-                        console.log('✅ ServiceWorker registration successful with scope: ', registration.scope);
-                    })
-                    .catch(function(err) {
-                        console.log('❌ ServiceWorker registration failed: ', err);
-                        // Fallback: create inline service worker
-                        createInlineServiceWorker();
-                    });
-            });
-        }
-
-        // Fallback inline service worker
-        function createInlineServiceWorker() {
-            const swContent = `
-                const CACHE_NAME = 'bussid-topup-fallback';
-                self.addEventListener('install', (event) => {
-                    console.log('🟢 Fallback Service Worker Installed');
-                });
-                self.addEventListener('activate', (event) => {
-                    console.log('🟡 Fallback Service Worker Activated');
-                });
-                self.addEventListener('fetch', (event) => {
-                    // Basic fetch handling
-                });
-            `;
-            
-            const blob = new Blob([swContent], { type: 'application/javascript' });
-            const swURL = URL.createObjectURL(blob);
-            
-            navigator.serviceWorker.register(swURL)
-                .then(function(registration) {
-                    console.log('✅ Fallback ServiceWorker registered');
-                })
-                .catch(function(err) {
-                    console.log('❌ Fallback ServiceWorker failed: ', err);
-                });
-        }
-
-        // PWA Readiness Check
-        function checkPWAReadiness() {
-            const checks = {
-                https: window.location.protocol === 'https:',
-                serviceWorker: 'serviceWorker' in navigator,
-                manifest: document.querySelector('link[rel="manifest"]') !== null,
-                beforeInstallPrompt: 'BeforeInstallPromptEvent' in window
-            };
-            
-            console.log('🔍 PWA Readiness Check:', checks);
-            return checks;
-        }
-
-        // Check PWA readiness on load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Initializing BUSSID Top Up PWA');
-            checkPWAReadiness();
-        });
-
-        // ==================== KODE ASLI BUSSID TOP UP ====================
-        // Konfigurasi
+        // ==================== KONFIGURASI ====================
         const PLAYFAB_TITLE_ID = "4AE9";
         const PLAYFAB_API_URL = "https://4AE9.playfabapi.com";
         const LICENSE_BASE_URL = "https://api.github.com/repos/Revansyabian/Webtopupotomatis/contents/lisensi";
-        const ADMIN_PHONE = "6289520418604";
+        const ADMIN_PHONE = '6289520418604';
         
-        // Variabel global
+        // ==================== MUSIC CONFIGURATION ====================
+        const MUSIC_PLAYLIST = [
+            {
+                name: "BUSSID Theme",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            {
+                name: "Relaxing Music",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+            },
+            {
+                name: "Game Music",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            }
+        ];
+        
+        // ==================== VARIABEL GLOBAL ====================
         let authToken = "";
         let cashAmount = 0;
         let accountName = "";
         let selectedAmount = 0;
         let previousBalance = 0;
+        let currentLoginMethod = "";
+        let lastTransactionData = null;
         let licenseData = null;
         let deviceId = "";
-        let totalTransactions = 0;
-        let successfulTransactions = 0;
-        let currentLoginMethod = "";
+        let musicPlayer = null;
+        let currentMusicIndex = 0;
+        let isMusicPlaying = false;
         
-        // Elemen DOM dengan pengecekan null
+        // ==================== ELEMEN DOM ====================
         function getElement(id) {
             const element = document.getElementById(id);
-            if (!element) {
-                console.warn(`Element with id '${id}' not found`);
-            }
+            if (!element) console.warn(`Element '${id}' not found`);
             return element;
         }
         
+        // License elements
+        const welcomePopup = getElement('welcomePopup');
+        const welcomeMessage = getElement('welcomeMessage');
+        const welcomeLicenseStatus = getElement('welcomeLicenseStatus');
+        const welcomeLicenseDays = getElement('welcomeLicenseDays');
+        const welcomeLicensePackage = getElement('welcomeLicensePackage');
+        const closeWelcomeBtn = getElement('closeWelcomeBtn');
+        
+        // Music elements
+        const musicPlayerElement = getElement('musicPlayer');
+        const musicToggle = getElement('musicToggle');
+        const playPauseBtn = getElement('playPauseBtn');
+        const prevBtn = getElement('prevBtn');
+        const nextBtn = getElement('nextBtn');
+        const volumeSlider = getElement('volumeSlider');
+        const musicInfo = getElement('musicInfo');
+        
+        // License elements
+        const licenseStatus = getElement('license-status');
+        const licenseDays = getElement('license-days');
+        const licenseInfo = getElement('license-info');
+        const renewalSection = getElement('renewal-section');
+        const renewalMessage = getElement('renewal-message');
+        const loginContent = getElement('login-content');
+        const licenseNameElement = getElement('license-name');
+        
+        // Main content elements
+        const mainContent = getElement('main-content');
+        const accessDenied = getElement('access-denied');
         const deviceIdInput = getElement('device-id-input');
         const xauthInput = getElement('xauth-input');
         const deviceLoginBtn = getElement('device-login-btn');
@@ -684,7 +1741,6 @@
         const loginForms = document.querySelectorAll('.login-form');
         const cashAmountElement = getElement('cash-amount');
         const accountNameElement = getElement('account-name');
-        const licenseNameElement = getElement('license-name');
         const loginMethodElement = getElement('login-method');
         const amountInput = getElement('amount-input');
         const addCashBtn = getElement('add-cash-btn');
@@ -697,95 +1753,25 @@
         const amountButtons = document.querySelectorAll('.amount-btn');
         const transactionDetails = getElement('transaction-details');
         const topupSection = getElement('topup-section');
-        const accessDenied = getElement('access-denied');
         const loginSection = getElement('login-section');
-        const licenseStatus = getElement('license-status');
-        const licenseDays = getElement('license-days');
-        const licenseInfo = getElement('license-info');
         const accountInfo = getElement('account-info');
-        const mainContent = getElement('main-content');
-        const renewalSection = getElement('renewal-section');
-        const renewalMessage = getElement('renewal-message');
-        const loginContent = getElement('login-content');
+        const accountInfoTitle = getElement('account-info-title');
         const rememberDeviceIdCheckbox = getElement('remember-device-id');
-
-        // Fungsi untuk menyimpan device ID ke localStorage
-        function saveDeviceIdToLocalStorage(deviceId) {
-            if (rememberDeviceIdCheckbox && rememberDeviceIdCheckbox.checked) {
-                localStorage.setItem('bussid_saved_device_id', deviceId);
-                localStorage.setItem('bussid_remember_device', 'true');
-                console.log('Device ID disimpan ke localStorage:', deviceId);
-            } else {
-                localStorage.removeItem('bussid_saved_device_id');
-                localStorage.removeItem('bussid_remember_device');
-                console.log('Device ID dihapus dari localStorage');
-            }
-        }
-
-        // Fungsi untuk memuat device ID dari localStorage
-        function loadDeviceIdFromLocalStorage() {
-            const savedDeviceId = localStorage.getItem('bussid_saved_device_id');
-            const rememberDevice = localStorage.getItem('bussid_remember_device');
-            
-            if (savedDeviceId && deviceIdInput) {
-                deviceIdInput.value = savedDeviceId;
-                console.log('Device ID dimuat dari localStorage:', savedDeviceId);
-            }
-            
-            if (rememberDevice === 'true' && rememberDeviceIdCheckbox) {
-                rememberDeviceIdCheckbox.checked = true;
-                console.log('Checkbox "Ingat Device ID" dicentang');
-            }
-        }
-
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = getElement('particles');
-            if (!particlesContainer) return;
-            
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const size = Math.random() * 6 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 6}s`;
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Switch login tabs
-        function switchLoginTab(tabName) {
-            if (!loginTabs || !loginForms) return;
-            
-            loginTabs.forEach(tab => {
-                if (tab.dataset.tab === tabName) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-
-            loginForms.forEach(form => {
-                if (form.id === `${tabName}-login-form`) {
-                    form.classList.add('active');
-                } else {
-                    form.classList.remove('active');
-                }
-            });
-        }
-
-        // Generate PERMANENT License Device ID yang TIDAK BERUBAH
+        const printTransactionBtn = getElement('print-transaction-btn');
+        const transactionPhotoCanvas = getElement('transaction-photo-canvas');
+        
+        // Access option buttons
+        const accessOptionButtons = document.querySelectorAll('.access-options .access-btn, .renewal-section .access-btn');
+        
+        // ==================== LICENSE SYSTEM ====================
+        
+        // Generate permanent license device ID
         function generatePermanentLicenseDeviceId() {
-            // Cek apakah sudah ada device ID yang disimpan
-            let storedLicenseId = localStorage.getItem('bussid_license_device_id');
+            let deviceId = localStorage.getItem('bussid_license_device_id');
             
-            if (!storedLicenseId) {
-                // Generate device ID baru yang sangat stabil
-                const permanentComponents = [
-                    'BUSSID_LICENSE', // Static identifier
+            if (!deviceId) {
+                const components = [
+                    'LIC_',
                     navigator.userAgent,
                     navigator.platform,
                     screen.width + 'x' + screen.height,
@@ -794,30 +1780,26 @@
                     navigator.hardwareConcurrency || 'unknown'
                 ].join('|');
                 
-                // Hash yang konsisten
                 let hash = 0;
-                for (let i = 0; i < permanentComponents.length; i++) {
-                    const char = permanentComponents.charCodeAt(i);
+                for (let i = 0; i < components.length; i++) {
+                    const char = components.charCodeAt(i);
                     hash = ((hash << 5) - hash) + char;
                     hash = hash & hash;
                 }
                 
-                storedLicenseId = 'LIC_' + Math.abs(hash).toString(36).substring(0, 12).toUpperCase();
-                
-                // Simpan secara PERMANEN
-                localStorage.setItem('bussid_license_device_id', storedLicenseId);
-                console.log('Generated PERMANENT License Device ID:', storedLicenseId);
+                deviceId = 'LIC_' + Math.abs(hash).toString(24).substring(0, 12).toUpperCase();
+                localStorage.setItem('bussid_license_device_id', deviceId);
+                console.log('Generated PERMANENT License Device ID:', deviceId);
             } else {
-                console.log('Using existing PERMANENT License Device ID:', storedLicenseId);
+                console.log('Using existing PERMANENT License Device ID:', deviceId);
             }
             
-            return storedLicenseId;
+            return deviceId;
         }
-
         
+        // Check license from GitHub
         async function checkLicense(deviceId) {
             setLoading(true);
-            
             try {
                 const response = await fetch(`${LICENSE_BASE_URL}/${deviceId}.json`);
                 
@@ -838,7 +1820,6 @@
                 }
                 
                 return licenseData;
-                
             } catch (error) {
                 if (error.message === 'LICENSE_NOT_FOUND') {
                     return null;
@@ -848,96 +1829,340 @@
                 setLoading(false);
             }
         }
-
+        
+        // Calculate days left from expiry date
         function calculateDaysLeft(expiryDate) {
             try {
                 const [day, month, year] = expiryDate.split('-').map(Number);
                 const expiry = new Date(year, month - 1, day);
                 const today = new Date();
-                const diffTime = expiry - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays;
+                const diff = expiry - today;
+                const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                return daysLeft;
             } catch (error) {
                 console.error('Error calculating days left:', error);
                 return -1;
             }
         }
-
+        
+        // Calculate days expired
         function calculateDaysExpired(expiryDate) {
             try {
                 const [day, month, year] = expiryDate.split('-').map(Number);
                 const expiry = new Date(year, month - 1, day);
                 const today = new Date();
-                const diffTime = today - expiry;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays;
+                const diff = today - expiry;
+                const daysExpired = Math.floor(diff / (1000 * 60 * 60 * 24));
+                return daysExpired;
             } catch (error) {
                 console.error('Error calculating days expired:', error);
                 return -1;
             }
         }
-
+        
+        // Update license display
         function updateLicenseDisplay(license) {
             if (!licenseStatus || !licenseDays) return false;
             
             if (!license) {
-                licenseStatus.textContent = '❌ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗧𝗜𝗗𝗔𝗞 𝗩𝗔𝗟𝗜𝗗';
-                licenseStatus.className = 'license-status license-expired';
-                licenseDays.textContent = 'Device ID tidak terdaftar';
+                licenseStatus.textContent = "❌ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗧𝗜𝗗𝗔𝗞 𝗩𝗔𝗟𝗜𝗗";
+                licenseStatus.className = "license-status license-expired";
+                licenseDays.textContent = "ID tidak terdaftar pada database";
                 return false;
             }
-
+            
             const daysLeft = calculateDaysLeft(license.expiry_date);
             
             if (daysLeft > 0) {
-                licenseStatus.textContent = '✅ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗩𝗔𝗟𝗜𝗗';
-                licenseStatus.className = 'license-status license-valid';
+                licenseStatus.textContent = "✅ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗩𝗔𝗟𝗜𝗗";
+                licenseStatus.className = "license-status license-valid";
                 licenseDays.textContent = `Masa aktif: ${daysLeft} hari tersisa`;
-                if (licenseNameElement) licenseNameElement.textContent = license.name;
                 
-                // Sembunyikan menu perpanjangan dan tampilkan menu login jika license valid
+                if (licenseNameElement) licenseNameElement.textContent = license.name;
                 if (renewalSection) renewalSection.style.display = 'none';
                 if (loginContent) loginContent.style.display = 'block';
+                
                 return true;
             } else {
-                licenseStatus.textContent = '❌ 𝗔𝗞𝗦𝗘𝗦 𝗧𝗘𝗟𝗔𝗛 𝗕𝗘𝗥𝗔𝗞𝗛𝗜𝗥';
-                licenseStatus.className = 'license-status license-expired';
+                licenseStatus.textContent = "❌ 𝗔𝗞𝗦𝗘𝗦 𝗧𝗘𝗟𝗔𝗛 𝗕𝗘𝗥𝗔𝗞𝗛𝗜𝗥";
+                licenseStatus.className = "license-status license-expired";
                 const daysExpired = calculateDaysExpired(license.expiry_date);
                 licenseDays.textContent = `Masa aktif telah habis ${daysExpired} hari yang lalu`;
+                
                 if (licenseNameElement) licenseNameElement.textContent = license.name;
                 
-                // Tampilkan menu perpanjangan dan sembunyikan menu login jika license expired
                 if (renewalSection && renewalMessage) {
                     renewalSection.style.display = 'block';
-                    renewalMessage.innerHTML = `
-                        Akses Anda telah berakhir <strong>${daysExpired} hari</strong> yang lalu.<br>
-                        Silakan perpanjang akses untuk melanjutkan menggunakan layanan top up.
-                    `;
+                    renewalMessage.innerHTML = `Akses Anda telah berakhir <strong>${daysExpired} hari</strong> yang lalu.<br>
+                                                Silakan perpanjang akses untuk melanjutkan menggunakan layanan top up.`;
                 }
                 if (loginContent) loginContent.style.display = 'none';
+                
                 return false;
             }
         }
-
-        // Fungsi untuk membuka WhatsApp dengan pesan sesuai paket yang dipilih
+        
+        // Update welcome popup with license info
+        function updateWelcomePopup(license) {
+            if (!license) {
+                welcomeMessage.textContent = "Maaf, license tidak ditemukan";
+                welcomeLicenseStatus.textContent = "❌ Tidak Valid";
+                welcomeLicenseStatus.style.color = "#FF4444";
+                welcomeLicenseDays.textContent = "-";
+                welcomeLicensePackage.textContent = "-";
+                return;
+            }
+            
+            const daysLeft = calculateDaysLeft(license.expiry_date);
+            const packageType = license.expiry_date === 'permanent' ? 'PERMANENT' : 'REGULAR';
+            
+            welcomeMessage.textContent = `Welcome ${license.name}! Selamat menggunakan BUSSID Top Up`;
+            welcomeLicenseStatus.textContent = daysLeft > 0 ? "✅ Valid" : "❌ Expired";
+            welcomeLicenseStatus.style.color = daysLeft > 0 ? "#00FF88" : "#FF4444";
+            welcomeLicenseDays.textContent = daysLeft > 0 ? `${daysLeft} hari tersisa` : "License expired";
+            welcomeLicensePackage.textContent = packageType;
+        }
+        
+        // Open WhatsApp for license purchase/renewal
         function openWhatsAppForLicense(deviceId, price, duration, isRenewal = false) {
             let message = '';
             
             if (isRenewal) {
-                message = `Assalamu'alaikum, saya mau perpanjang akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\n` +
-                          `Akses ID: ${deviceId}\n` +
-                          `Tanggal: ${new Date().toLocaleDateString('id-ID')}`;
+                message = `Assalamu'alaikum, saya mau perpanjang akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\nAkses ID: ${deviceId}\nTanggal: ${new Date().toLocaleDateString('id-ID')}`;
             } else {
-                message = `Assalamu'alaikum, saya mau beli akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\n` +
-                          `Akses ID: ${deviceId}\n` +
-                          `Tanggal: ${new Date().toLocaleDateString('id-ID')}`;
+                message = `Assalamu'alaikum, saya mau beli akses Web Top Up Bussid ${duration} seharga Rp ${price}.000.\n\nAkses ID: ${deviceId}\nTanggal: ${new Date().toLocaleDateString('id-ID')}`;
             }
             
-            const url = `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(message)}`;
-            
-            window.open(url, '_blank');
+            const whatsappUrl = `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
-
+        
+        // ==================== MUSIC PLAYER ====================
+        
+        function initMusicPlayer() {
+            musicPlayer = new Audio();
+            musicPlayer.src = MUSIC_PLAYLIST[currentMusicIndex].url;
+            musicPlayer.volume = volumeSlider.value / 100;
+            musicPlayer.loop = false;
+            
+            // Event listeners for music player
+            musicPlayer.addEventListener('ended', playNextMusic);
+            musicPlayer.addEventListener('timeupdate', updateMusicInfo);
+            
+            // Update music info
+            updateMusicInfo();
+        }
+        
+        function toggleMusic() {
+            if (!musicPlayer) return;
+            
+            if (isMusicPlaying) {
+                musicPlayer.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                musicInfo.textContent = 'Music: Paused';
+            } else {
+                musicPlayer.play().catch(e => console.log('Audio play failed:', e));
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicInfo.textContent = `Playing: ${MUSIC_PLAYLIST[currentMusicIndex].name}`;
+            }
+            
+            isMusicPlaying = !isMusicPlaying;
+        }
+        
+        function playNextMusic() {
+            currentMusicIndex = (currentMusicIndex + 1) % MUSIC_PLAYLIST.length;
+            musicPlayer.src = MUSIC_PLAYLIST[currentMusicIndex].url;
+            musicPlayer.play();
+            updateMusicInfo();
+        }
+        
+        function playPrevMusic() {
+            currentMusicIndex = (currentMusicIndex - 1 + MUSIC_PLAYLIST.length) % MUSIC_PLAYLIST.length;
+            musicPlayer.src = MUSIC_PLAYLIST[currentMusicIndex].url;
+            musicPlayer.play();
+            updateMusicInfo();
+        }
+        
+        function updateMusicInfo() {
+            if (!musicPlayer) return;
+            
+            if (isMusicPlaying) {
+                const currentTime = formatTime(musicPlayer.currentTime);
+                const duration = formatTime(musicPlayer.duration || 0);
+                musicInfo.textContent = `${MUSIC_PLAYLIST[currentMusicIndex].name} ${currentTime}/${duration}`;
+            }
+        }
+        
+        function formatTime(seconds) {
+            if (!seconds || isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // ==================== TRANSACTION PHOTO ====================
+        
+        function generateTransactionPhoto() {
+            if (!lastTransactionData) {
+                showStatus('Tidak ada data transaksi untuk dibuat foto', false);
+                return;
+            }
+            
+            // Buat canvas HD
+            const canvas = transactionPhotoCanvas;
+            const ctx = canvas.getContext('2d');
+            
+            // Set ukuran canvas HD (1920x1080)
+            canvas.width = 1920;
+            canvas.height = 1080;
+            
+            // Background gradien
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#001f3f');
+            gradient.addColorStop(1, '#003366');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Header dengan gradien dan emoji
+            const headerGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            headerGradient.addColorStop(0, '#0074D9');
+            headerGradient.addColorStop(1, '#00BFFF');
+            ctx.fillStyle = headerGradient;
+            ctx.fillRect(0, 0, canvas.width, 200);
+            
+            // Judul utama dengan emoji
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 80px "Montserrat", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎮 BUKTI TRANSAKSI BUSSID 🎮', canvas.width / 2, 100);
+            
+            // Sub judul dengan emoji
+            ctx.font = '35px "Roboto", sans-serif';
+            ctx.fillText('💰 Top Up Money Berhasil 💰', canvas.width / 2, 150);
+            
+            // Container untuk konten
+            const contentX = 150;
+            const contentY = 300;
+            const contentWidth = canvas.width - 300;
+            const contentHeight = 600;
+            
+            // Background konten dengan efek kaca
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.roundRect(contentX, contentY, contentWidth, contentHeight, 40);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Data transaksi dengan emoji yang menarik
+            const emojiData = [
+                { emoji: '👤', label: 'Nama Akun', value: lastTransactionData.account },
+                { emoji: '📝', label: 'Jenis Transaksi', value: lastTransactionData.type },
+                { emoji: '💰', label: 'Jumlah UB', value: lastTransactionData.amount.toLocaleString() + ' UB' },
+                { emoji: '📊', label: 'Saldo Sebelum', value: lastTransactionData.before.toLocaleString() + ' UB' },
+                { emoji: '✅', label: 'Saldo Sesudah', value: lastTransactionData.after.toLocaleString() + ' UB' },
+                { emoji: '🔄', label: 'Status', value: lastTransactionData.status },
+                { emoji: '📅', label: 'Tanggal & Waktu', value: lastTransactionData.date },
+                { emoji: '🎯', label: 'ID Transaksi', value: 'BUSSID-' + Date.now().toString().slice(-8) }
+            ];
+            
+            let yPos = contentY + 100;
+            const lineHeight = 70;
+            
+            emojiData.forEach(item => {
+                // Emoji besar
+                ctx.font = '45px Arial';
+                ctx.fillText(item.emoji, contentX + 50, yPos);
+                
+                // Label dengan warna berbeda
+                ctx.font = 'bold 34px "Roboto", sans-serif';
+                ctx.fillStyle = '#00BFFF';
+                ctx.fillText(item.label + ':', contentX + 120, yPos);
+                
+                // Value dengan styling khusus
+                ctx.font = 'bold 38px "Roboto", sans-serif';
+                if (item.label.includes('Sesudah') || item.label.includes('Status')) {
+                    ctx.fillStyle = '#00FF88';
+                } else if (item.label.includes('UB')) {
+                    ctx.fillStyle = '#FFD700'; // Gold for money amounts
+                } else {
+                    ctx.fillStyle = '#FFFFFF';
+                }
+                
+                // Align right for values
+                ctx.textAlign = 'right';
+                ctx.fillText(item.value, contentX + contentWidth - 50, yPos);
+                ctx.textAlign = 'left';
+                
+                // Garis pemisah dengan efek gradien
+                if (yPos < contentY + contentHeight - 100) {
+                    ctx.strokeStyle = 'rgba(0, 191, 255, 0.3)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(contentX + 50, yPos + 35);
+                    ctx.lineTo(contentX + contentWidth - 50, yPos + 35);
+                    ctx.stroke();
+                }
+                
+                yPos += lineHeight;
+            });
+            
+            // Footer dengan efek khusus
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.fillRect(0, canvas.height - 150, canvas.width, 150);
+            
+            // Garis pemisah footer
+            ctx.strokeStyle = 'rgba(0, 191, 255, 0.5)';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height - 150);
+            ctx.lineTo(canvas.width, canvas.height - 150);
+            ctx.stroke();
+            
+            // Informasi footer dengan emoji
+            ctx.fillStyle = '#CCCCCC';
+            ctx.font = '28px "Roboto", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎮 © BUSSID Money Top Up 🎮', canvas.width / 2, canvas.height - 90);
+            ctx.fillText('📱 web by revan store 📱', canvas.width / 2, canvas.height - 50);
+            
+            // QR Code area (placeholder - bisa ditambahkan QR code asli)
+            const qrSize = 100;
+            const qrX = canvas.width - qrSize - 50;
+            const qrY = canvas.height - qrSize - 40;
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.strokeStyle = '#00BFFF';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(qrX, qrY, qrSize, qrSize, 10);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 20px "Roboto", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('🔒', qrX + qrSize/2, qrY + qrSize/2);
+            ctx.font = '12px "Roboto", sans-serif';
+            ctx.fillText('SECURE', qrX + qrSize/2, qrY + qrSize/2 + 20);
+            
+            // Konversi ke data URL dengan kualitas tinggi
+            const imageData = canvas.toDataURL('image/jpeg', 0.95);
+            
+            // Buat link untuk mengunduh gambar
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageData;
+            downloadLink.download = `bukti-transaksi-bussid-${Date.now()}.jpg`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            showStatus('✅ Foto transaksi HD berhasil dibuat dan diunduh!', true);
+        }
+        
+        // ==================== FUNGSI BANTUAN ====================
+        
         function showStatus(message, isSuccess) {
             if (!statusMessage) return;
             
@@ -946,21 +2171,17 @@
             statusMessage.style.display = 'block';
             
             setTimeout(() => {
-                if (statusMessage) {
-                    statusMessage.style.display = 'none';
-                }
+                if (statusMessage) statusMessage.style.display = 'none';
             }, 5000);
         }
         
         function setLoading(isLoading) {
             if (!loadingElement) return;
-            
             loadingElement.style.display = isLoading ? 'block' : 'none';
         }
         
         function updateSelectedAmountDisplay() {
             if (!selectedAmountElement) return;
-            
             selectedAmountElement.textContent = `Selected Amount: ${selectedAmount.toLocaleString()}`;
         }
         
@@ -979,13 +2200,41 @@
             if (transAfter) transAfter.textContent = after.toLocaleString();
             if (transStatus) transStatus.textContent = status;
             
+            // Simpan data transaksi untuk dicetak
+            lastTransactionData = {
+                account: account,
+                type: type,
+                amount: amount,
+                before: before,
+                after: after,
+                status: status,
+                date: new Date().toLocaleString('id-ID')
+            };
+            
             if (transactionDetails) {
                 transactionDetails.style.display = 'block';
                 transactionDetails.scrollIntoView({ behavior: 'smooth' });
             }
         }
         
-        // Login dengan Device ID menggunakan API PlayFab - MANUAL INPUT
+        function showAccountInfo() {
+            if (accountInfoTitle && accountInfo) {
+                accountInfoTitle.classList.remove('hidden-section');
+                accountInfo.classList.remove('hidden-section');
+            }
+        }
+        
+        function hideAccountInfo() {
+            if (accountInfoTitle && accountInfo) {
+                accountInfoTitle.classList.add('hidden-section');
+                accountInfo.classList.add('hidden-section');
+            }
+        }
+        
+        // ==================== FUNGSI LOGIN & TOPUP ====================
+        // (Fungsi-fungsi loginWithDeviceId, loginWithXAuth, getUserInfo, modifyCash, logout)
+        // ... (Sama seperti di kode kedua) ...
+        
         async function loginWithDeviceId(deviceId) {
             if (!deviceId) {
                 showStatus('Masukkan Device ID untuk Top Up UB!', false);
@@ -1036,9 +2285,7 @@
                         if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
                     }
                     
-                    // Simpan device ID ke localStorage jika checkbox dicentang
-                    saveDeviceIdToLocalStorage(deviceId);
-                    
+                    showAccountInfo();
                     showStatus('Login dengan Device ID berhasil!', true);
                     return true;
                 } else {
@@ -1053,7 +2300,6 @@
             }
         }
         
-        // Login dengan X-Authorization
         async function loginWithXAuth(xAuthToken) {
             setLoading(true);
             
@@ -1063,6 +2309,7 @@
                 const userInfo = await getUserInfo();
                 
                 if (userInfo) {
+                    showAccountInfo();
                     showStatus('Login dengan TOKEN berhasil!', true);
                     return true;
                 } else {
@@ -1077,9 +2324,7 @@
         }
         
         async function getUserInfo() {
-            if (!authToken) {
-                return null;
-            }
+            if (!authToken) return null;
             
             try {
                 const data = {
@@ -1098,9 +2343,7 @@
                     body: JSON.stringify(data)
                 });
                 
-                if (!response.ok) {
-                    throw new Error('Gagal mengambil informasi akun');
-                }
+                if (!response.ok) throw new Error('Gagal mengambil informasi akun');
                 
                 const result = await response.json();
                 
@@ -1113,10 +2356,7 @@
                     if (accountNameElement) accountNameElement.textContent = accountName;
                     if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
                     
-                    return {
-                        name: accountName,
-                        balance: cashAmount
-                    };
+                    return { name: accountName, balance: cashAmount };
                 } else {
                     throw new Error(result.errorMessage || 'Error mengambil data');
                 }
@@ -1158,9 +2398,7 @@
                     body: JSON.stringify(data)
                 });
                 
-                if (!response.ok) {
-                    throw new Error('HTTP Error: ' + response.status);
-                }
+                if (!response.ok) throw new Error('HTTP Error: ' + response.status);
                 
                 const result = await response.json();
                 
@@ -1198,84 +2436,119 @@
                 setLoading(false);
             }
         }
-
-        // Logout function
+        
         function logout() {
             authToken = "";
             cashAmount = 0;
             accountName = "";
             selectedAmount = 0;
             currentLoginMethod = "";
+            lastTransactionData = null;
             
-            // Reset UI dengan pengecekan null
             if (topupSection) topupSection.style.display = 'none';
             if (loginSection) loginSection.style.display = 'block';
+            if (transactionDetails) transactionDetails.style.display = 'none';
             if (cashAmountElement) cashAmountElement.textContent = '-';
             if (accountNameElement) accountNameElement.textContent = '-';
-            if (licenseNameElement) licenseNameElement.textContent = '-';
             if (loginMethodElement) loginMethodElement.textContent = '-';
             if (deviceIdInput) deviceIdInput.value = '';
             if (xauthInput) xauthInput.value = '';
             
+            hideAccountInfo();
             showStatus('Logout berhasil!', true);
         }
-
-        // Event listeners dengan pengecekan null yang komprehensif
+        
+        // ==================== EVENT LISTENERS ====================
+        
         document.addEventListener('DOMContentLoaded', async function() {
-            // Create particles
-            createParticles();
+            // Initialize music player
+            initMusicPlayer();
             
-            // Generate PERMANENT License Device ID yang TIDAK BERUBAH
+            // Generate device ID untuk license
             deviceId = generatePermanentLicenseDeviceId();
             
-            // Load saved device ID dari localStorage
-            loadDeviceIdFromLocalStorage();
-            
-            // Auto check license saat page load
+            // Check license
             const license = await checkLicense(deviceId);
-            const isValidLicense = updateLicenseDisplay(license);
-
-            if (!license) {
-                // Jika license tidak ditemukan sama sekali
-                if (mainContent) mainContent.style.display = 'none';
-                if (accessDenied) accessDenied.style.display = 'block';
-                
-                // Tambahkan event listener untuk tombol akses
-                const accessButtons = document.querySelectorAll('.access-btn');
-                accessButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const price = this.getAttribute('data-price');
-                        const duration = this.getAttribute('data-duration');
-                        openWhatsAppForLicense(deviceId, price, duration, false);
-                    });
+            
+            // Update welcome popup
+            updateWelcomePopup(license);
+            
+            // Update license display
+            const isValid = updateLicenseDisplay(license);
+            
+            // Setup access option buttons
+            accessOptionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const price = this.getAttribute('data-price');
+                    const duration = this.getAttribute('data-duration');
+                    const isRenewal = this.closest('.renewal-section') !== null;
+                    openWhatsAppForLicense(deviceId, price, duration, isRenewal);
                 });
-                
-                return;
-            }
-
-            // Jika license ada tapi expired, tampilkan menu perpanjangan
-            if (!isValidLicense) {
-                // Tambahkan event listener untuk tombol perpanjangan
-                const renewalButtons = document.querySelectorAll('.renewal-section .access-btn');
-                renewalButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const price = this.getAttribute('data-price');
-                        const duration = this.getAttribute('data-duration');
-                        openWhatsAppForLicense(deviceId, price, duration, true);
-                    });
+            });
+            
+            // Close welcome popup
+            if (closeWelcomeBtn) {
+                closeWelcomeBtn.addEventListener('click', () => {
+                    welcomePopup.style.display = 'none';
+                    
+                    // Show/hide main content based on license validity
+                    if (!license || !isValid) {
+                        if (mainContent) mainContent.style.display = 'none';
+                        if (accessDenied) accessDenied.style.display = 'block';
+                    } else {
+                        if (mainContent) mainContent.style.display = 'block';
+                        if (accessDenied) accessDenied.style.display = 'none';
+                    }
                 });
             }
-
+            
+            // Music player controls
+            if (musicToggle) {
+                musicToggle.addEventListener('click', () => {
+                    musicPlayerElement.style.display = musicPlayerElement.style.display === 'none' ? 'flex' : 'none';
+                });
+            }
+            
+            if (playPauseBtn) {
+                playPauseBtn.addEventListener('click', toggleMusic);
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', playPrevMusic);
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', playNextMusic);
+            }
+            
+            if (volumeSlider) {
+                volumeSlider.addEventListener('input', () => {
+                    if (musicPlayer) {
+                        musicPlayer.volume = volumeSlider.value / 100;
+                    }
+                });
+            }
+            
+            // Print transaction button
+            if (printTransactionBtn) {
+                printTransactionBtn.addEventListener('click', generateTransactionPhoto);
+            }
+            
+            // ... (Event listeners lainnya dari kode kedua) ...
+            
             // Login tab switcher
             if (loginTabs && loginTabs.length > 0) {
                 loginTabs.forEach(tab => {
                     tab.addEventListener('click', () => {
-                        switchLoginTab(tab.dataset.tab);
+                        loginTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        loginForms.forEach(form => form.classList.remove('active'));
+                        document.getElementById(`${tab.dataset.tab}-login-form`).classList.add('active');
                     });
                 });
             }
-
-            // Device ID login - MANUAL INPUT
+            
+            // Device ID login
             if (deviceLoginBtn) {
                 deviceLoginBtn.addEventListener('click', async () => {
                     const inputDeviceId = deviceIdInput ? deviceIdInput.value.trim() : '';
@@ -1287,7 +2560,7 @@
                 });
             }
             
-            // X-Auth login - MANUAL INPUT
+            // X-Auth login
             if (xauthLoginBtn) {
                 xauthLoginBtn.addEventListener('click', async () => {
                     const xAuthToken = xauthInput ? xauthInput.value.trim() : '';
@@ -1377,7 +2650,7 @@
                     await modifyCash(-selectedAmount);
                 });
             }
-
+            
             // Refresh balance button
             if (refreshBtn) {
                 refreshBtn.addEventListener('click', async () => {
@@ -1385,10 +2658,26 @@
                     showStatus('Saldo berhasil di-refresh!', true);
                 });
             }
-
+            
             // Logout button
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', logout);
+            }
+            
+            // Add roundRect if not exists
+            if (!CanvasRenderingContext2D.prototype.roundRect) {
+                CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                    if (w < 2 * r) r = w / 2;
+                    if (h < 2 * r) r = h / 2;
+                    this.beginPath();
+                    this.moveTo(x + r, y);
+                    this.arcTo(x + w, y, x + w, y + h, r);
+                    this.arcTo(x + w, y + h, x, y + h, r);
+                    this.arcTo(x, y + h, x, y, r);
+                    this.arcTo(x, y, x + w, y, r);
+                    this.closePath();
+                    return this;
+                }
             }
         });
     </script>
