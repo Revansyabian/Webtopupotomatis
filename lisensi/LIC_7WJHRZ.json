@@ -1,11 +1,12 @@
+
 {
   "name": "Revan",
-  "device_id": "962b00c135ef9a2e",
   "expiry_date": "1-09-9999",
-  "status": "active",
   "package": "PERMANEN",
-  "max_topup": 2147483647,
+  "nomor": "tes doang",
   "bussid": "yes",
   "truksid": "yes",
-  "pasword": "ts"
+  "password": "revan",
+  "deviceid_bussid": "962b00c135ef9a2e",
+  "deviceid_truksid": "34eac6d01c4ffce3"
 }
