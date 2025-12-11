@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUSSID & TRUKSID Money Top Up</title>
+    <title>BUSSID Money Top Up</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -99,107 +99,6 @@
             z-index: 1;
         }
         
-        /* ============ GAME SELECTION POPUP ============ */
-        .game-selection-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 10002;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .game-selection-content {
-            background: linear-gradient(135deg, #001f3f, #003366);
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: popupScale 0.6s ease-out;
-            box-shadow: 0 20px 50px rgba(0, 191, 255, 0.4);
-        }
-        
-        @keyframes popupScale {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .game-selection-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-            color: #00BFFF;
-            text-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
-            animation: bounce 2s infinite;
-        }
-        
-        .game-selection-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .game-selection-message {
-            font-size: 16px;
-            margin-bottom: 25px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.4;
-        }
-        
-        .game-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .game-option {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 20px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .game-option:hover {
-            background: rgba(0, 191, 255, 0.3);
-            transform: translateY(-5px);
-            border-color: #00BFFF;
-        }
-        
-        .game-option.bussid {
-            background: linear-gradient(135deg, #0074D9, #00BFFF);
-            border-color: #00BFFF;
-        }
-        
-        .game-option.truksid {
-            background: linear-gradient(135deg, #FF6B6B, #FFA500);
-            border-color: #FFA500;
-        }
-        
-        .game-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        
-        .game-name {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
         /* ============ LOGIN SUCCESS POPUP ============ */
         .login-success-popup {
             position: fixed;
@@ -225,6 +124,11 @@
             border: 3px solid rgba(255, 255, 255, 0.3);
             animation: popupScale 0.6s ease-out;
             box-shadow: 0 20px 50px rgba(0, 168, 107, 0.4);
+        }
+        
+        @keyframes popupScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
         .login-success-icon {
@@ -264,140 +168,6 @@
         }
         
         .login-success-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6);
-        }
-        
-        /* ============ DEVICE ID INFO POPUP ============ */
-        .device-info-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 10002;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .device-info-content {
-            background: linear-gradient(135deg, #0074D9, #00BFFF);
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 350px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: popupScale 0.6s ease-out;
-            box-shadow: 0 20px 50px rgba(0, 116, 217, 0.4);
-        }
-        
-        .device-info-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-        }
-        
-        .device-info-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .device-info-message {
-            font-size: 16px;
-            margin-bottom: 25px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.4;
-        }
-        
-        .device-info-button {
-            background: white;
-            color: #0074D9;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .device-info-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6);
-        }
-        
-        /* ============ ERROR POPUP ============ */
-        .error-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 10002;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .error-content {
-            background: linear-gradient(135deg, #FF4444, #FF6B6B);
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 350px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: popupScale 0.6s ease-out;
-            box-shadow: 0 20px 50px rgba(255, 68, 68, 0.4);
-        }
-        
-        .error-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-        }
-        
-        .error-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .error-message {
-            font-size: 16px;
-            margin-bottom: 25px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.4;
-        }
-        
-        .error-button {
-            background: white;
-            color: #FF4444;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .error-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 25px rgba(255, 255, 255, 0.6);
         }
@@ -1423,47 +1193,9 @@
             font-weight: bold;
             animation: bounce 2s infinite;
         }
-        
-        .game-type-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(135deg, #FF6B6B, #FFE66D);
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: bold;
-            animation: bounce 2s infinite;
-        }
     </style>
 </head>
 <body>
-    <!-- Game Selection Popup -->
-    <div class="game-selection-popup" id="gameSelectionPopup">
-        <div class="game-selection-content">
-            <div class="game-selection-icon">🎮</div>
-            <div class="game-selection-title">PILIH GAME</div>
-            <div class="game-selection-message" id="gameSelectionMessage">
-                Pilih game yang ingin Anda top up:
-            </div>
-            
-            <div class="game-options">
-                <div class="game-option bussid" id="bussidOption">
-                    <div class="game-icon">🚌</div>
-                    <div class="game-name">BUSSID</div>
-                </div>
-                
-                <div class="game-option truksid" id="truksidOption">
-                    <div class="game-icon">🚛</div>
-                    <div class="game-name">TRUKSID</div>
-                </div>
-            </div>
-            
-            <button class="login-success-button" id="closeGameSelectionBtn">BATAL</button>
-        </div>
-    </div>
-
     <!-- Login Success Popup -->
     <div class="login-success-popup" id="loginSuccessPopup">
         <div class="login-success-content">
@@ -1473,30 +1205,6 @@
                 Selamat datang! Anda telah berhasil login ke sistem Top Up BUSSID.
             </div>
             <button class="login-success-button" id="closeLoginSuccessBtn">LANJUTKAN</button>
-        </div>
-    </div>
-
-    <!-- Device ID Info Popup -->
-    <div class="device-info-popup" id="deviceInfoPopup">
-        <div class="device-info-content">
-            <div class="device-info-icon">✅</div>
-            <div class="device-info-title">DEVICE ID DITEMUKAN</div>
-            <div class="device-info-message" id="deviceInfoMessage">
-                Berhasil menggunakan device id yang tersimpan!
-            </div>
-            <button class="device-info-button" id="closeDeviceInfoBtn">LANJUTKAN</button>
-        </div>
-    </div>
-
-    <!-- Error Popup -->
-    <div class="error-popup" id="errorPopup">
-        <div class="error-content">
-            <div class="error-icon">❌</div>
-            <div class="error-title">DEVICE ID TIDAK DITEMUKAN</div>
-            <div class="error-message" id="errorMessage">
-                Maaf device id anda tidak ditemukan silakan isi secara manual
-            </div>
-            <button class="error-button" id="closeErrorBtn">MENGERTI</button>
         </div>
     </div>
 
@@ -1537,10 +1245,9 @@
     
     <div class="container">
         <div class="feature-badge">PREMIUM</div>
-        <div class="game-type-badge" id="gameTypeBadge" style="display: none;">BUSSID</div>
         
         <div class="header">
-            <h1>WEB TOP UP BUSSID & TRUKSID</h1>
+            <h1>WEB TOP UP BUSSID</h1>
             <p>Ga bisa akses? beli akses ke admin</p>
         </div>
         
@@ -1629,35 +1336,33 @@
                     </div>
                     
                     <!-- INFORMASI AKUN - AKAN DISEMBUNYIKAN SAAT BELUM LOGIN -->
-                    <div class="section-title hidden-section" id="account-info-title">𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗦𝗜 𝗔𝗞𝗨𝗡</div>
-                    
-                    <div class="info-box hidden-section" id="account-info">
-                        <div class="info-row">
-                            <div class="info-label">𝗝𝗨𝗠𝗟𝗔𝗛 𝗨𝗔𝗡𝗚</div>
-                            <div class="info-value" id="cash-amount"> 0</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">𝗡𝗔𝗠𝗔 𝗔𝗞𝗨𝗡</div>
-                            <div class="info-value" id="account-name">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">𝗡𝗔𝗠𝗔</div>
-                            <div class="info-value" id="license-name">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">𝗠𝗘𝗧𝗢𝗗𝗘 𝗟𝗢𝗚𝗜𝗡</div>
-                            <div class="info-value" id="login-method">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">𝗚𝗔𝗠𝗘</div>
-                            <div class="info-value" id="game-type">-</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="section-title hidden-section" id="account-info-title">𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗦𝗜 𝗔𝗞𝗨𝗡</div>
+
+<div class="info-box hidden-section" id="account-info">
+    <div class="info-row">
+        <div class="info-label">𝗝𝗨𝗠𝗟𝗔𝗛 𝗨𝗔𝗡𝗚</div>
+        <div class="info-value" id="cash-amount"> 0</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">𝗡𝗔𝗠𝗔 𝗔𝗞𝗨𝗡 𝗕𝗨𝗦𝗦𝗜𝗗</div>
+        <div class="info-value" id="account-name">-</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">𝗡𝗔𝗠𝗔 𝗔𝗞𝗨𝗡 𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞</div>
+        <div class="info-value" id="facebook-name">-</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 𝗜𝗗</div>
+        <div class="info-value" id="facebook-id">-</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">𝗠𝗘𝗧𝗢𝗗𝗘 𝗟𝗢𝗚𝗜𝗡</div>
+        <div class="info-value" id="login-method">-</div>
+    </div>
+</div>
 
             <div class="section" id="topup-section" style="display: none;">
-                <div class="section-title" id="game-section-title">𝗧𝗢𝗣 𝗨𝗣 𝗦𝗘𝗥𝗩𝗜𝗖𝗘</div>
+                <div class="section-title">𝗧𝗢𝗣 𝗨𝗣 𝗦𝗘𝗥𝗩𝗜𝗖𝗘</div>
                 
                 <div class="input-group">
                     <div class="input-label">𝗠𝗔𝗦𝗨𝗞𝗔𝗡 𝗝𝗨𝗠𝗟𝗔𝗛 (1 - 2,147,483,647)</div>
@@ -1713,12 +1418,6 @@
                             <span class="transaction-emoji">👤</span> Nama Akun:
                         </div>
                         <div class="transaction-value" id="trans-account">-</div>
-                    </div>
-                    <div class="transaction-row">
-                        <div class="transaction-label">
-                            <span class="transaction-emoji">🎮</span> Game:
-                        </div>
-                        <div class="transaction-value" id="trans-game">-</div>
                     </div>
                     <div class="transaction-row">
                         <div class="transaction-label">
@@ -1855,15 +1554,14 @@
 
     <script>
         // ==================== KONFIGURASI ====================
-        const PLAYFAB_TITLE_ID_BUSSID = "4AE9";
-        const PLAYFAB_TITLE_ID_TRUKSID = "89A0B";
-        const PLAYFAB_API_URL_BUSSID = "https://4AE9.playfabapi.com";
-        const PLAYFAB_API_URL_TRUKSID = "https://89A0B.playfabapi.com";
+        const PLAYFAB_TITLE_ID = "4AE9";
+        const PLAYFAB_API_URL = "https://4AE9.playfabapi.com";
         const LICENSE_BASE_URL = "https://api.github.com/repos/Revansyabian/Webtopupotomatis/contents/lisensi";
         const ADMIN_PHONE = '6289520418604';
         
         // ==================== SIMPLE MUSIC CONFIGURATION ====================
-        const BACKGROUND_MUSIC_URL = "https://on.soundcloud.com/1BeiT4dNuEZRlnyEUH";
+        // URL lagu bisa diubah di sini
+        const BACKGROUND_MUSIC_URL = "https://on.soundcloud.com/1BeiT4dNuEZRlnyEUH"; // Ganti dengan URL lagu yang diinginkan
         
         // ==================== VARIABEL GLOBAL ====================
         let authToken = "";
@@ -1877,9 +1575,6 @@
         let deviceId = "";
         let backgroundMusic = null;
         let isMusicMuted = false;
-        let currentGame = ""; // "bussid" atau "truksid"
-        let currentGameApiUrl = "";
-        let currentGameTitleId = "";
         
         // ==================== ELEMEN DOM ====================
         function getElement(id) {
@@ -1888,24 +1583,10 @@
             return element;
         }
         
-        // Popup elements
-        const gameSelectionPopup = getElement('gameSelectionPopup');
-        const gameSelectionMessage = getElement('gameSelectionMessage');
-        const bussidOption = getElement('bussidOption');
-        const truksidOption = getElement('truksidOption');
-        const closeGameSelectionBtn = getElement('closeGameSelectionBtn');
-        
+        // Login success popup elements
         const loginSuccessPopup = getElement('loginSuccessPopup');
         const loginSuccessMessage = getElement('loginSuccessMessage');
         const closeLoginSuccessBtn = getElement('closeLoginSuccessBtn');
-        
-        const deviceInfoPopup = getElement('deviceInfoPopup');
-        const deviceInfoMessage = getElement('deviceInfoMessage');
-        const closeDeviceInfoBtn = getElement('closeDeviceInfoBtn');
-        
-        const errorPopup = getElement('errorPopup');
-        const errorMessage = getElement('errorMessage');
-        const closeErrorBtn = getElement('closeErrorBtn');
         
         // Music elements
         const musicToggle = getElement('musicToggle');
@@ -1931,9 +1612,6 @@
         const cashAmountElement = getElement('cash-amount');
         const accountNameElement = getElement('account-name');
         const loginMethodElement = getElement('login-method');
-        const gameTypeElement = getElement('game-type');
-        const gameTypeBadge = getElement('gameTypeBadge');
-        const gameSectionTitle = getElement('game-section-title');
         const amountInput = getElement('amount-input');
         const addCashBtn = getElement('add-cash-btn');
         const reduceCashBtn = getElement('reduce-cash-btn');
@@ -1951,7 +1629,6 @@
         const rememberDeviceIdCheckbox = getElement('remember-device-id');
         const printTransactionBtn = getElement('print-transaction-btn');
         const transactionPhotoCanvas = getElement('transaction-photo-canvas');
-        const transGameElement = getElement('trans-game');
         
         // Access option buttons
         const accessOptionButtons = document.querySelectorAll('.access-options .access-btn, .renewal-section .access-btn');
@@ -1959,11 +1636,13 @@
         // ==================== SIMPLE MUSIC PLAYER ====================
         
         function initBackgroundMusic() {
+            // Buat audio element
             backgroundMusic = new Audio();
             backgroundMusic.src = BACKGROUND_MUSIC_URL;
-            backgroundMusic.volume = 0.3;
-            backgroundMusic.loop = true;
+            backgroundMusic.volume = 0.3; // Volume 30%
+            backgroundMusic.loop = true; // Loop musik
             
+            // Coba play musik saat user berinteraksi dengan halaman
             document.addEventListener('click', function startMusic() {
                 if (backgroundMusic && !isMusicMuted) {
                     backgroundMusic.play().catch(e => {
@@ -1973,6 +1652,7 @@
                 document.removeEventListener('click', startMusic);
             });
             
+            // Event untuk error handling
             backgroundMusic.addEventListener('error', (e) => {
                 console.log('Error loading music:', e);
             });
@@ -1982,6 +1662,7 @@
             if (!backgroundMusic) return;
             
             if (isMusicMuted) {
+                // Unmute musik
                 backgroundMusic.volume = 0.3;
                 backgroundMusic.play().catch(e => {
                     console.log('Play failed:', e);
@@ -1989,6 +1670,7 @@
                 musicToggle.classList.remove('muted');
                 musicToggle.querySelector('.music-icon').innerHTML = '<i class="fas fa-volume-up"></i>';
             } else {
+                // Mute musik
                 backgroundMusic.volume = 0;
                 musicToggle.classList.add('muted');
                 musicToggle.querySelector('.music-icon').innerHTML = '<i class="fas fa-volume-mute"></i>';
@@ -1997,92 +1679,46 @@
             isMusicMuted = !isMusicMuted;
         }
         
-        // ==================== FUNGSI POPUP ====================
-        
-        function showGameSelectionPopup() {
-            gameSelectionMessage.textContent = `Halo ${licenseData.name}! Pilih game yang ingin Anda top up:`;
-            gameSelectionPopup.style.display = 'flex';
-        }
+        // ==================== FUNGSI UNTUK MENAMPILKAN POPUP LOGIN SUKSES ====================
         
         function showLoginSuccessPopup(loginMethod, accountName) {
             loginSuccessMessage.textContent = `Login dengan ${loginMethod} berhasil!\nSelamat datang ${accountName}!`;
             loginSuccessPopup.style.display = 'flex';
             
+            // Auto close setelah 3 detik
             setTimeout(() => {
                 loginSuccessPopup.style.display = 'none';
             }, 3000);
         }
         
-        function showDeviceInfoPopup(message = "Berhasil menggunakan device id yang tersimpan!") {
-            deviceInfoMessage.textContent = message;
-            deviceInfoPopup.style.display = 'flex';
-            
-            setTimeout(() => {
-                deviceInfoPopup.style.display = 'none';
-            }, 3000);
-        }
-        
-        function showErrorPopup(message = "Maaf device id anda tidak ditemukan silakan isi secara manual") {
-            errorMessage.textContent = message;
-            errorPopup.style.display = 'flex';
-        }
-        
         // ==================== FUNGSI INGAT DEVICE ID ====================
         
-        function saveDeviceId(deviceId, gameType = "") {
+        function saveDeviceId(deviceId) {
             if (rememberDeviceIdCheckbox && rememberDeviceIdCheckbox.checked) {
-                localStorage.setItem(`bussid_remembered_device_id_${gameType}`, deviceId);
-                localStorage.setItem(`bussid_remembered_game`, gameType);
-                console.log(`Device ID ${gameType} disimpan:`, deviceId);
+                localStorage.setItem('bussid_remembered_device_id', deviceId);
+                console.log('Device ID disimpan:', deviceId);
             }
         }
         
-        function loadRememberedDeviceId(gameType = "") {
-            // Coba load berdasarkan game type
-            let savedDeviceId = localStorage.getItem(`bussid_remembered_device_id_${gameType}`);
-            let savedGame = localStorage.getItem(`bussid_remembered_game`);
-            
-            // Jika ada device ID untuk game ini
-            if (savedDeviceId && savedGame === gameType) {
-                if (deviceIdInput) {
-                    deviceIdInput.value = savedDeviceId;
-                    // Centang checkbox
-                    if (rememberDeviceIdCheckbox) {
-                        rememberDeviceIdCheckbox.checked = true;
-                    }
-                    console.log(`Device ID ${gameType} dimuat:`, savedDeviceId);
-                    return true;
-                }
-            }
-            
-            // Jika tidak ada untuk game ini, coba load yang umum
-            savedDeviceId = localStorage.getItem('bussid_remembered_device_id');
+        function loadRememberedDeviceId() {
+            const savedDeviceId = localStorage.getItem('bussid_remembered_device_id');
             if (savedDeviceId && deviceIdInput) {
                 deviceIdInput.value = savedDeviceId;
-                if (rememberDeviceIdCheckbox) {
-                    rememberDeviceIdCheckbox.checked = true;
-                }
-                console.log('Device ID umum dimuat:', savedDeviceId);
+                console.log('Device ID dimuat:', savedDeviceId);
                 return true;
             }
-            
             return false;
         }
         
         function clearRememberedDeviceId() {
-            // Hapus semua device ID yang disimpan
             localStorage.removeItem('bussid_remembered_device_id');
-            localStorage.removeItem('bussid_remembered_device_id_bussid');
-            localStorage.removeItem('bussid_remembered_device_id_truksid');
-            localStorage.removeItem('bussid_remembered_game');
-            
             if (deviceIdInput) deviceIdInput.value = '';
             if (rememberDeviceIdCheckbox) rememberDeviceIdCheckbox.checked = false;
-            console.log('Semua Device ID dihapus');
         }
         
         // ==================== LICENSE SYSTEM ====================
         
+        // Generate permanent license device ID
         function generatePermanentLicenseDeviceId() {
             let deviceId = localStorage.getItem('bussid_license_device_id');
             
@@ -2114,6 +1750,7 @@
             return deviceId;
         }
         
+        // Check license from GitHub
         async function checkLicense(deviceId) {
             setLoading(true);
             try {
@@ -2146,6 +1783,7 @@
             }
         }
         
+        // Calculate days left from expiry date
         function calculateDaysLeft(expiryDate) {
             try {
                 const [day, month, year] = expiryDate.split('-').map(Number);
@@ -2160,6 +1798,7 @@
             }
         }
         
+        // Calculate days expired
         function calculateDaysExpired(expiryDate) {
             try {
                 const [day, month, year] = expiryDate.split('-').map(Number);
@@ -2174,6 +1813,7 @@
             }
         }
         
+        // Update license display
         function updateLicenseDisplay(license) {
             if (!licenseStatus || !licenseDays) return false;
             
@@ -2186,14 +1826,10 @@
             
             const daysLeft = calculateDaysLeft(license.expiry_date);
             
-            if (daysLeft > 0 || license.expiry_date === "1-09-9999") {
+            if (daysLeft > 0) {
                 licenseStatus.textContent = "✅ 𝗜𝗗 𝗔𝗞𝗦𝗘𝗦 𝗩𝗔𝗟𝗜𝗗";
                 licenseStatus.className = "license-status license-valid";
-                if (license.expiry_date === "1-09-9999") {
-                    licenseDays.textContent = "Masa aktif: PERMANEN";
-                } else {
-                    licenseDays.textContent = `Masa aktif: ${daysLeft} hari tersisa`;
-                }
+                licenseDays.textContent = `Masa aktif: ${daysLeft} hari tersisa`;
                 
                 if (licenseNameElement) licenseNameElement.textContent = license.name;
                 if (renewalSection) renewalSection.style.display = 'none';
@@ -2219,74 +1855,7 @@
             }
         }
         
-        function setupGameBasedOnLicense() {
-            if (!licenseData) return;
-            
-            console.log("License data:", licenseData);
-            
-            const bussidEnabled = licenseData.bussid === "yes";
-            const truksidEnabled = licenseData.truksid === "yes";
-            
-            if (bussidEnabled && truksidEnabled) {
-                // Kedua game enabled, tampilkan popup pilihan
-                showGameSelectionPopup();
-            } else if (bussidEnabled) {
-                // Hanya BUSSID enabled
-                setupForGame("bussid");
-                autoFillDeviceIdIfAvailable();
-            } else if (truksidEnabled) {
-                // Hanya TRUKSID enabled
-                setupForGame("truksid");
-                autoFillDeviceIdIfAvailable();
-            } else {
-                // Tidak ada game enabled
-                showErrorPopup("Maaf, tidak ada game yang diaktifkan untuk license Anda");
-            }
-        }
-        
-        function setupForGame(gameType) {
-            currentGame = gameType;
-            
-            if (gameType === "bussid") {
-                currentGameApiUrl = PLAYFAB_API_URL_BUSSID;
-                currentGameTitleId = PLAYFAB_TITLE_ID_BUSSID;
-                gameTypeBadge.textContent = "BUSSID";
-                gameSectionTitle.textContent = "𝗧𝗢𝗣 𝗨𝗣 𝗕𝗨𝗦𝗦𝗜𝗗";
-                gameTypeBadge.style.display = "block";
-                gameTypeBadge.style.background = "linear-gradient(135deg, #0074D9, #00BFFF)";
-            } else if (gameType === "truksid") {
-                currentGameApiUrl = PLAYFAB_API_URL_TRUKSID;
-                currentGameTitleId = PLAYFAB_TITLE_ID_TRUKSID;
-                gameTypeBadge.textContent = "TRUKSID";
-                gameSectionTitle.textContent = "𝗧𝗢𝗣 𝗨𝗣 𝗧𝗥𝗨𝗞𝗦𝗜𝗗";
-                gameTypeBadge.style.display = "block";
-                gameTypeBadge.style.background = "linear-gradient(135deg, #FF6B6B, #FFA500)";
-            }
-            
-            // Update UI untuk game yang dipilih
-            if (gameTypeElement) gameTypeElement.textContent = gameType.toUpperCase();
-        }
-        
-        function autoFillDeviceIdIfAvailable() {
-            if (!licenseData) return;
-            
-            let deviceIdToFill = "";
-            
-            if (currentGame === "bussid" && licenseData.deviceid_bussid) {
-                deviceIdToFill = licenseData.deviceid_bussid;
-            } else if (currentGame === "truksid" && licenseData.deviceid_truksid) {
-                deviceIdToFill = licenseData.deviceid_truksid;
-            }
-            
-            if (deviceIdToFill && deviceIdInput) {
-                deviceIdInput.value = deviceIdToFill;
-                showDeviceInfoPopup(`Berhasil menggunakan device id ${currentGame.toUpperCase()} yang tersimpan!`);
-                console.log(`Auto-filled ${currentGame} device ID:`, deviceIdToFill);
-            } else {
-                showErrorPopup(`Device ID ${currentGame.toUpperCase()} tidak ditemukan dalam license, silakan isi manual`);
-            }
-        }
-        
+        // Open WhatsApp for license purchase/renewal
         function openWhatsAppForLicense(deviceId, price, duration, isRenewal = false) {
             let message = '';
             
@@ -2308,37 +1877,45 @@
                 return;
             }
             
+            // Buat canvas HD
             const canvas = transactionPhotoCanvas;
             const ctx = canvas.getContext('2d');
             
+            // Set ukuran canvas HD (1920x1080)
             canvas.width = 1920;
             canvas.height = 1080;
             
+            // Background gradien
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#001f3f');
             gradient.addColorStop(1, '#003366');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
+            // Header dengan gradien dan emoji
             const headerGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
             headerGradient.addColorStop(0, '#0074D9');
             headerGradient.addColorStop(1, '#00BFFF');
             ctx.fillStyle = headerGradient;
             ctx.fillRect(0, 0, canvas.width, 200);
             
+            // Judul utama dengan emoji
             ctx.fillStyle = '#FFFFFF';
             ctx.font = 'bold 80px "Montserrat", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('🎮 BUKTI TRANSAKSI BUSSID 🎮', canvas.width / 2, 100);
             
+            // Sub judul dengan emoji
             ctx.font = '35px "Roboto", sans-serif';
             ctx.fillText('💰 Top Up Money Berhasil 💰', canvas.width / 2, 150);
             
+            // Container untuk konten
             const contentX = 150;
             const contentY = 300;
             const contentWidth = canvas.width - 300;
             const contentHeight = 600;
             
+            // Background konten dengan efek kaca
             ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
             ctx.lineWidth = 3;
@@ -2347,42 +1924,48 @@
             ctx.fill();
             ctx.stroke();
             
-            const emojiData = [
-                { emoji: '👤', label: 'Nama Akun', value: lastTransactionData.account },
-                { emoji: '🎮', label: 'Game', value: lastTransactionData.game },
-                { emoji: '📝', label: 'Jenis Transaksi', value: lastTransactionData.type },
-                { emoji: '💰', label: 'Jumlah UB', value: lastTransactionData.amount.toLocaleString() + ' UB' },
-                { emoji: '📊', label: 'Saldo Sebelum', value: lastTransactionData.before.toLocaleString() + ' UB' },
-                { emoji: '✅', label: 'Saldo Sesudah', value: lastTransactionData.after.toLocaleString() + ' UB' },
-                { emoji: '🔄', label: 'Status', value: lastTransactionData.status },
-                { emoji: '📅', label: 'Tanggal & Waktu', value: lastTransactionData.date },
-                { emoji: '🎯', label: 'ID Transaksi', value: 'BUSSID-' + Date.now().toString().slice(-8) }
-            ];
-            
+            // Data transaksi dengan emoji yang menarik
+                const emojiData = [
+        { emoji: '👤', label: 'Nama Akun BUSSID', value: lastTransactionData.account },
+        { emoji: '📱', label: 'Nama Akun Facebook', value: lastTransactionData.facebookName },
+        { emoji: '🆔', label: 'Facebook ID', value: lastTransactionData.facebookId },
+        { emoji: '📝', label: 'Jenis Transaksi', value: lastTransactionData.type },
+        { emoji: '💰', label: 'Jumlah UB', value: lastTransactionData.amount.toLocaleString() + ' UB' },
+        { emoji: '📊', label: 'Saldo Sebelum', value: lastTransactionData.before.toLocaleString() + ' UB' },
+        { emoji: '✅', label: 'Saldo Sesudah', value: lastTransactionData.after.toLocaleString() + ' UB' },
+        { emoji: '🔄', label: 'Status', value: lastTransactionData.status },
+        { emoji: '📅', label: 'Tanggal & Waktu', value: lastTransactionData.date },
+        { emoji: '🎯', label: 'ID Transaksi', value: 'BUSSID-' + Date.now().toString().slice(-8) }
+    ];
             let yPos = contentY + 100;
             const lineHeight = 70;
             
             emojiData.forEach(item => {
+                // Emoji besar
                 ctx.font = '45px Arial';
                 ctx.fillText(item.emoji, contentX + 50, yPos);
                 
+                // Label dengan warna berbeda
                 ctx.font = 'bold 34px "Roboto", sans-serif';
                 ctx.fillStyle = '#00BFFF';
                 ctx.fillText(item.label + ':', contentX + 120, yPos);
                 
+                // Value dengan styling khusus
                 ctx.font = 'bold 38px "Roboto", sans-serif';
                 if (item.label.includes('Sesudah') || item.label.includes('Status')) {
                     ctx.fillStyle = '#00FF88';
                 } else if (item.label.includes('UB')) {
-                    ctx.fillStyle = '#FFD700';
+                    ctx.fillStyle = '#FFD700'; // Gold for money amounts
                 } else {
                     ctx.fillStyle = '#FFFFFF';
                 }
                 
+                // Align right for values
                 ctx.textAlign = 'right';
                 ctx.fillText(item.value, contentX + contentWidth - 50, yPos);
                 ctx.textAlign = 'left';
                 
+                // Garis pemisah dengan efek gradien
                 if (yPos < contentY + contentHeight - 100) {
                     ctx.strokeStyle = 'rgba(0, 191, 255, 0.3)';
                     ctx.lineWidth = 2;
@@ -2395,9 +1978,11 @@
                 yPos += lineHeight;
             });
             
+            // Footer dengan efek khusus
             ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
             ctx.fillRect(0, canvas.height - 150, canvas.width, 150);
             
+            // Garis pemisah footer
             ctx.strokeStyle = 'rgba(0, 191, 255, 0.5)';
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -2405,12 +1990,14 @@
             ctx.lineTo(canvas.width, canvas.height - 150);
             ctx.stroke();
             
+            // Informasi footer dengan emoji
             ctx.fillStyle = '#CCCCCC';
             ctx.font = '28px "Roboto", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('🎮 © BUSSID Money Top Up 🎮', canvas.width / 2, canvas.height - 90);
             ctx.fillText('📱 web by revan store 📱', canvas.width / 2, canvas.height - 50);
             
+            // QR Code area (placeholder - bisa ditambahkan QR code asli)
             const qrSize = 100;
             const qrX = canvas.width - qrSize - 50;
             const qrY = canvas.height - qrSize - 40;
@@ -2430,11 +2017,13 @@
             ctx.font = '12px "Roboto", sans-serif';
             ctx.fillText('SECURE', qrX + qrSize/2, qrY + qrSize/2 + 20);
             
+            // Konversi ke data URL dengan kualitas tinggi
             const imageData = canvas.toDataURL('image/jpeg', 0.95);
             
+            // Buat link untuk mengunduh gambar
             const downloadLink = document.createElement('a');
             downloadLink.href = imageData;
-            downloadLink.download = `bukti-transaksi-${currentGame}-${Date.now()}.jpg`;
+            downloadLink.download = `bukti-transaksi-bussid-${Date.now()}.jpg`;
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
@@ -2466,39 +2055,39 @@
             selectedAmountElement.textContent = `Selected Amount: ${selectedAmount.toLocaleString()}`;
         }
         
-        function showTransactionDetails(account, game, type, amount, before, after, status) {
-            const transAccount = getElement('trans-account');
-            const transGame = getElement('trans-game');
-            const transType = getElement('trans-type');
-            const transAmount = getElement('trans-amount');
-            const transBefore = getElement('trans-before');
-            const transAfter = getElement('trans-after');
-            const transStatus = getElement('trans-status');
-            
-            if (transAccount) transAccount.textContent = account;
-            if (transGame) transGame.textContent = game;
-            if (transType) transType.textContent = type;
-            if (transAmount) transAmount.textContent = amount.toLocaleString();
-            if (transBefore) transBefore.textContent = before.toLocaleString();
-            if (transAfter) transAfter.textContent = after.toLocaleString();
-            if (transStatus) transStatus.textContent = status;
-            
-            lastTransactionData = {
-                account: account,
-                game: game,
-                type: type,
-                amount: amount,
-                before: before,
-                after: after,
-                status: status,
-                date: new Date().toLocaleString('id-ID')
-            };
-            
-            if (transactionDetails) {
-                transactionDetails.style.display = 'block';
-                transactionDetails.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
+        function showTransactionDetails(account, type, amount, before, after, status) {
+    const transAccount = getElement('trans-account');
+    const transType = getElement('trans-type');
+    const transAmount = getElement('trans-amount');
+    const transBefore = getElement('trans-before');
+    const transAfter = getElement('trans-after');
+    const transStatus = getElement('trans-status');
+    
+    if (transAccount) transAccount.textContent = account;
+    if (transType) transType.textContent = type;
+    if (transAmount) transAmount.textContent = amount.toLocaleString();
+    if (transBefore) transBefore.textContent = before.toLocaleString();
+    if (transAfter) transAfter.textContent = after.toLocaleString();
+    if (transStatus) transStatus.textContent = status;
+    
+    // Simpan data transaksi untuk dicetak (termasuk info Facebook)
+    lastTransactionData = {
+        account: account,
+        facebookName: facebookName,
+        facebookId: facebookId,
+        type: type,
+        amount: amount,
+        before: before,
+        after: after,
+        status: status,
+        date: new Date().toLocaleString('id-ID')
+    };
+    
+    if (transactionDetails) {
+        transactionDetails.style.display = 'block';
+        transactionDetails.scrollIntoView({ behavior: 'smooth' });
+    }
+}
         
         function showAccountInfo() {
             if (accountInfoTitle && accountInfo) {
@@ -2522,17 +2111,12 @@
                 return false;
             }
             
-            if (!currentGame) {
-                showStatus('Pilih game terlebih dahulu!', false);
-                return false;
-            }
-            
             setLoading(true);
             
             try {
                 const loginData = {
                     AndroidDeviceId: deviceId,
-                    TitleId: currentGameTitleId,
+                    TitleId: PLAYFAB_TITLE_ID,
                     CreateAccount: true,
                     InfoRequestParameters: {
                         GetUserAccountInfo: true,
@@ -2540,9 +2124,9 @@
                     }
                 };
                 
-                console.log(`Login data untuk ${currentGame}:`, loginData);
+                console.log('Login data untuk Top Up:', loginData);
                 
-                const response = await fetch(`${currentGameApiUrl}/Client/LoginWithAndroidDeviceID`, {
+                const response = await fetch(`${PLAYFAB_API_URL}/Client/LoginWithAndroidDeviceID`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2560,6 +2144,7 @@
                     authToken = data.data.SessionTicket;
                     currentLoginMethod = "Device ID";
                     
+                    // Extract user info dari response
                     if (data.data.InfoResultPayload) {
                         const info = data.data.InfoResultPayload;
                         cashAmount = info.UserVirtualCurrency?.RP || 0;
@@ -2568,11 +2153,12 @@
                         if (cashAmountElement) cashAmountElement.textContent = cashAmount.toLocaleString();
                         if (accountNameElement) accountNameElement.textContent = accountName;
                         if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
-                        if (gameTypeElement) gameTypeElement.textContent = currentGame.toUpperCase();
                     }
                     
-                    saveDeviceId(deviceId, currentGame);
+                    // Simpan Device ID jika checkbox dicentang
+                    saveDeviceId(deviceId);
                     
+                    // Tampilkan popup login sukses
                     showLoginSuccessPopup(currentLoginMethod, accountName);
                     
                     showAccountInfo();
@@ -2598,6 +2184,7 @@
                 const userInfo = await getUserInfo();
                 
                 if (userInfo) {
+                    // Tampilkan popup login sukses
                     showLoginSuccessPopup(currentLoginMethod, userInfo.name);
                     
                     showAccountInfo();
@@ -2614,48 +2201,90 @@
         }
         
         async function getUserInfo() {
-            if (!authToken) return null;
-            
-            try {
-                const data = {
-                    InfoRequestParameters: {
-                        GetUserAccountInfo: true,
-                        GetUserVirtualCurrency: true
-                    }
-                };
-                
-                const response = await fetch(`${currentGameApiUrl}/Client/GetPlayerCombinedInfo`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Authorization': authToken
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (!response.ok) throw new Error('Gagal mengambil informasi akun');
-                
-                const result = await response.json();
-                
-                if (result.code === 200) {
-                    const info = result.data.InfoResultPayload;
-                    cashAmount = info.UserVirtualCurrency?.RP || 0;
-                    accountName = info.AccountInfo?.TitleInfo?.DisplayName || 'Unknown';
-                    
-                    if (cashAmountElement) cashAmountElement.textContent = cashAmount.toLocaleString();
-                    if (accountNameElement) accountNameElement.textContent = accountName;
-                    if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
-                    
-                    return { name: accountName, balance: cashAmount };
-                } else {
-                    throw new Error(result.errorMessage || 'Error mengambil data');
-                }
-            } catch (error) {
-                showStatus('Gagal mengambil info: ' + error.message, false);
-                return null;
+    if (!authToken) return null;
+    
+    try {
+        const data = {
+            InfoRequestParameters: {
+                GetUserAccountInfo: true,
+                GetUserVirtualCurrency: true,
+                GetPlayerProfile: true
             }
-        }
+        };
         
+        const response = await fetch(`${PLAYFAB_API_URL}/Client/GetPlayerCombinedInfo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': authToken
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) throw new Error('Gagal mengambil informasi akun');
+        
+        const result = await response.json();
+        
+        if (result.code === 200) {
+            const info = result.data.InfoResultPayload;
+            cashAmount = info.UserVirtualCurrency?.RP || 0;
+            accountName = info.AccountInfo?.TitleInfo?.DisplayName || 'Unknown';
+            
+            // Ambil informasi Facebook jika tersedia
+            if (info.PlayerProfile && info.PlayerProfile.LinkedAccounts) {
+                const facebookAccount = info.PlayerProfile.LinkedAccounts.find(
+                    account => account.Platform === "Facebook"
+                );
+                
+                if (facebookAccount) {
+                    facebookName = facebookAccount.Username || facebookAccount.PlatformUserId || '-';
+                    facebookId = facebookAccount.PlatformUserId || '-';
+                } else {
+                    facebookName = '-';
+                    facebookId = '-';
+                }
+            } else {
+                facebookName = '-';
+                facebookId = '-';
+            }
+            
+            // Update semua elemen tampilan
+            if (cashAmountElement) cashAmountElement.textContent = cashAmount.toLocaleString();
+            if (accountNameElement) accountNameElement.textContent = accountName;
+            if (facebookNameElement) facebookNameElement.textContent = facebookName;
+            if (facebookIdElement) facebookIdElement.textContent = facebookId;
+            if (loginMethodElement) loginMethodElement.textContent = currentLoginMethod;
+            
+            return { 
+                name: accountName, 
+                balance: cashAmount,
+                facebookName: facebookName,
+                facebookId: facebookId
+            };
+        } else {
+            throw new Error(result.errorMessage || 'Error mengambil data');
+        }
+    } catch (error) {
+        console.error('Error getting user info:', error);
+        
+        // Fallback: set default values jika error
+        facebookName = '-';
+        facebookId = '-';
+        
+        if (facebookNameElement) facebookNameElement.textContent = facebookName;
+        if (facebookIdElement) facebookIdElement.textContent = facebookId;
+        
+        showStatus('Info Facebook tidak tersedia', false);
+        
+        // Tetap return data dasar
+        return { 
+            name: accountName, 
+            balance: cashAmount,
+            facebookName: facebookName,
+            facebookId: facebookId
+        };
+    }
+}
         async function modifyCash(amount) {
             if (!authToken) {
                 showStatus('Silakan login terlebih dahulu', false);
@@ -2679,7 +2308,7 @@
                     GeneratePlayStreamEvent: false
                 };
                 
-                const response = await fetch(`${currentGameApiUrl}/Client/ExecuteCloudScript`, {
+                const response = await fetch(`${PLAYFAB_API_URL}/Client/ExecuteCloudScript`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2701,7 +2330,6 @@
                     
                     showTransactionDetails(
                         accountName,
-                        currentGame.toUpperCase(),
                         amount > 0 ? 'TOP UP' : 'REDUCE',
                         absAmount,
                         previousBalance,
@@ -2729,77 +2357,69 @@
         }
         
         function logout() {
-            authToken = "";
-            cashAmount = 0;
-            accountName = "";
-            selectedAmount = 0;
-            currentLoginMethod = "";
-            lastTransactionData = null;
-            
-            if (topupSection) topupSection.style.display = 'none';
-            if (loginSection) loginSection.style.display = 'block';
-            if (transactionDetails) transactionDetails.style.display = 'none';
-            if (cashAmountElement) cashAmountElement.textContent = '-';
-            if (accountNameElement) accountNameElement.textContent = '-';
-            if (loginMethodElement) loginMethodElement.textContent = '-';
-            if (gameTypeElement) gameTypeElement.textContent = '-';
-            if (deviceIdInput) deviceIdInput.value = '';
-            if (xauthInput) xauthInput.value = '';
-            
-            hideAccountInfo();
-            showStatus('Logout berhasil!', true);
-        }
+    authToken = "";
+    cashAmount = 0;
+    accountName = "";
+    facebookName = "";
+    facebookId = "";
+    selectedAmount = 0;
+    currentLoginMethod = "";
+    lastTransactionData = null;
+    
+    if (topupSection) topupSection.style.display = 'none';
+    if (loginSection) loginSection.style.display = 'block';
+    if (transactionDetails) transactionDetails.style.display = 'none';
+    if (cashAmountElement) cashAmountElement.textContent = '-';
+    if (accountNameElement) accountNameElement.textContent = '-';
+    if (facebookNameElement) facebookNameElement.textContent = '-';
+    if (facebookIdElement) facebookIdElement.textContent = '-';
+    if (loginMethodElement) loginMethodElement.textContent = '-';
+    if (deviceIdInput) deviceIdInput.value = '';
+    if (xauthInput) xauthInput.value = '';
+    
+    hideAccountInfo();
+    showStatus('Logout berhasil!', true);
+}
         
         // ==================== EVENT LISTENERS ====================
         
         document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize background music
             initBackgroundMusic();
             
+            // Music toggle event
             if (musicToggle) {
                 musicToggle.addEventListener('click', toggleMusic);
             }
             
-            // Popup close buttons
-            if (closeGameSelectionBtn) {
-                closeGameSelectionBtn.addEventListener('click', () => {
-                    gameSelectionPopup.style.display = 'none';
-                });
-            }
-            
+            // Close login success popup
             if (closeLoginSuccessBtn) {
                 closeLoginSuccessBtn.addEventListener('click', () => {
                     loginSuccessPopup.style.display = 'none';
                 });
             }
             
-            if (closeDeviceInfoBtn) {
-                closeDeviceInfoBtn.addEventListener('click', () => {
-                    deviceInfoPopup.style.display = 'none';
-                });
-            }
+async function getFacebookInfo() {
+    try {
+        const response = await fetch(`${PLAYFAB_API_URL}/Client/GetAccountInfo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': authToken
+            },
+            body: JSON.stringify({
+                PlayFabId: getPlayFabIdFromToken() // Anda perlu ekstrak PlayFab ID dari token
+            })
+        });
+        
+        // Logika parsing data Facebook
+    } catch (error) {
+        console.error('Error getting Facebook info:', error);
+        return null;
+    }
+}
             
-            if (closeErrorBtn) {
-                closeErrorBtn.addEventListener('click', () => {
-                    errorPopup.style.display = 'none';
-                });
-            }
             
-            // Game selection options
-            if (bussidOption) {
-                bussidOption.addEventListener('click', () => {
-                    setupForGame("bussid");
-                    gameSelectionPopup.style.display = 'none';
-                    autoFillDeviceIdIfAvailable();
-                });
-            }
-            
-            if (truksidOption) {
-                truksidOption.addEventListener('click', () => {
-                    setupForGame("truksid");
-                    gameSelectionPopup.style.display = 'none';
-                    autoFillDeviceIdIfAvailable();
-                });
-            }
             
             // Generate device ID untuk license
             deviceId = generatePermanentLicenseDeviceId();
@@ -2810,22 +2430,8 @@
             // Update license display
             const isValid = updateLicenseDisplay(license);
             
-            // Langsung tampilkan aplikasi
-            if (license && isValid) {
-                if (mainContent) mainContent.style.display = 'block';
-                if (accessDenied) accessDenied.style.display = 'none';
-                
-                // Setup game berdasarkan license
-                setupGameBasedOnLicense();
-                
-                // Load remembered device ID untuk game yang dipilih
-                if (currentGame) {
-                    loadRememberedDeviceId(currentGame);
-                }
-            } else {
-                if (mainContent) mainContent.style.display = 'none';
-                if (accessDenied) accessDenied.style.display = 'block';
-            }
+            // Load remembered device ID saat halaman dimuat
+            loadRememberedDeviceId();
             
             // Setup access option buttons
             accessOptionButtons.forEach(button => {
@@ -2837,6 +2443,16 @@
                 });
             });
             
+            // Langsung tampilkan aplikasi tanpa popup welcome
+            if (license && isValid) {
+                if (mainContent) mainContent.style.display = 'block';
+                if (accessDenied) accessDenied.style.display = 'none';
+            } else {
+                if (mainContent) mainContent.style.display = 'none';
+                if (accessDenied) accessDenied.style.display = 'block';
+            }
+            
+            // Print transaction button
             if (printTransactionBtn) {
                 printTransactionBtn.addEventListener('click', generateTransactionPhoto);
             }
@@ -2964,7 +2580,7 @@
                 });
             }
             
-            // Logout button
+            // Logout button - TAMBAHKAN FUNGSI CLEAR REMEMBERED DEVICE ID
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {
                     clearRememberedDeviceId();
